@@ -13,7 +13,7 @@ var opts = {
 global.servers = {};
 
 client.on('ready', () => {
-    const welcomeChannel = bot.channels.get("id", "716408255747981443")
+    const welcomeChannel = client.channels.get("id", "716408255747981443")
     welcomeChannel.sendMessage("I'm Ready to test!");
      client.user.setStatus('available')
      client.user.setPresence({
