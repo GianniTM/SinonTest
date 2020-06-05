@@ -145,7 +145,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')) {
-        Plays(message);
+        Plays('whut');
     }
     //stop songs
     else if (message.content === '=stop'){
