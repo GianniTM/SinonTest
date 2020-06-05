@@ -42,9 +42,7 @@ client.on('ready', () => {
      client.user.setStatus('available')
      client.user.setPresence({
         game: {
-            name: 'With Asada',
-            type: "STREAMING",
-            url: "https://www.twitch.tv/xealiusrl"
+            name: 'Testing Commands',
         }
     });
 });
@@ -60,14 +58,14 @@ client.on('ready', () => {
 })();
 client.on('message', async message => {
     //getting sino quotes
-    if (message.content === '/q')
+    if (message.content === '=q')
     {
         var i = Math.floor(Math.random() * 15) + 1;
         var randomImg = "Images/sinon" + i + ".jpg"
         message.channel.send({files: [randomImg]});
     }
     // the help function
-    else if (message.content === '/help')
+    else if (message.content === '=help')
     {
         const embed = new Discord.RichEmbed();
         embed.setTitle("**Functions**");
@@ -77,53 +75,53 @@ client.on('message', async message => {
             '**/q**', 'Gives you a random sinon quote!'
         );
         embed.addField(
-            '**/p**','Plays a song from youtube for you. If there is already a song playing it will put them in the queue.'
+            '**=p**','Plays a song from youtube for you. If there is already a song playing it will put them in the queue.'
 
         );
         embed.addField(
-            "**/avatar (mentioned person)**",'Sends the avatar of the person you mentioned. If no one is mentioned it will send yours.'
+            "**=avatar (mentioned person)**",'Sends the avatar of the person you mentioned. If no one is mentioned it will send yours.'
         );
         embed.addField(
-            '**/skip**','Skips the current song and starts the next song in the queue. If there is no next song she will leave the voice channel.'
+            '**=skip**','Skips the current song and starts the next song in the queue. If there is no next song she will leave the voice channel.'
         );
         embed.addField(
-            '**/stop**','Queue gets emptied and bot leaves the Voice Channel'
+            '**=stop**','Queue gets emptied and bot leaves the Voice Channel'
         );
         embed.addField(
-            '**/queue**','Queue will be shown current playing song will always be at te top.'
+            '**=queue**','Queue will be shown current playing song will always be at te top.'
         );
         embed.addField(
-            '**/server**','Gets information about how many members there are in the server.'
+            '**=server**','Gets information about how many members there are in the server.'
         );
         embed.addField(
-            '**/u (mentioned person)**','The bot will say hello to the tagged user. This command was for testing mentions.'
+            '**=u (mentioned person)**','The bot will say hello to the tagged user. This command was for testing mentions.'
         );
         embed.addField(
-            '**/send (mentioned person) (message)**','sends a private message to the tagged user containing the private you put after you tagged that certain person. Do not abuse please.'
+            '**=send (mentioned person) (message)**','sends a private message to the tagged user containing the private you put after you tagged that certain person. Do not abuse please.'
         );
         embed.addField(
             '**Gif your game**','Everytime someone posts a clip from gif your game the bot will react with a star.'
         );
         embed.addField(
-            '**/rps (rock,paper or scissors)**' ,'Play a game of rock paper and scissors against the bot. Also available in NL!'
+            '**=rps (rock,paper or scissors)**' ,'Play a game of rock paper and scissors against the bot. Also available in NL!'
         );
         embed.addField(
-            '**/roll (Max Number)**' ,'Rolls a dice! Funny ones to use are 420 and 69!'
+            '**=roll (Max Number)**' ,'Rolls a dice! Funny ones to use are 420 and 69!'
         );
         embed.addField(
-            '**/feedback**' ,'Feedback for bugs and ideas! If you dislike the bot do not put this in the feedback. This is for serious feedback. Use the /hate command to hate her ;P'
+            '**=feedback**' ,'Feedback for bugs and ideas! If you dislike the bot do not put this in the feedback. This is for serious feedback. Use the /hate command to hate her ;P'
         );
         embed.addField(
-            '**/rr**' ,'Russian Roulette, Just a fun game to play with friends. Winner will be shot! In progress: (Be aware winner will also be muted or put in the death Role if you are in the main Discord server.)'
+            '**=rr**' ,'Russian Roulette, Just a fun game to play with friends. Winner will be shot! In progress: (Be aware winner will also be muted or put in the death Role if you are in the main Discord server.)'
         );
         embed.addField(
-            '**/discord**' ,'Main discord server. Come join to hang out!'
+            '**=discord**' ,'Main discord server. Come join to hang out!'
         );
         embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
         message.channel.send({embed});
     }
     // testing embed/ getting someone's avatar
-    else if (message.content.startsWith ('/avatar'))
+    else if (message.content.startsWith ('=avatar'))
     {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
@@ -141,7 +139,7 @@ client.on('message', async message => {
         }
     }
     //getting the amount of members in the current server
-    else if (message.content === `/server`) {
+    else if (message.content === `=server`) {
         const embed = new Discord.RichEmbed();
         embed.setTitle(message.guild.name);
         embed.setThumbnail(message.guild.iconURL)
@@ -149,7 +147,7 @@ client.on('message', async message => {
         message.channel.send({embed});
     }
     // saying hello to a mentioned person
-    else if (message.content.startsWith ('/u')){
+    else if (message.content.startsWith ('=u')){
         var mention = message.mentions.users.first();
         if (mention == null){
             message.channel.send('pls tag someone');
@@ -158,7 +156,7 @@ client.on('message', async message => {
         message.channel.send(`Hello ${mention} :D`);
     }
     //sending a private message via the bot
-    else if (message.content.startsWith ('/send')) {
+    else if (message.content.startsWith ('=send')) {
         var mention = message.mentions.users.first();
             if (mention == null){
             message.channel.send('pls tag someone');
@@ -169,7 +167,7 @@ client.on('message', async message => {
         mention.sendMessage (mentionMessage);
     }
     // playing + queueing song
-    else if (message.content.startsWith('/p ')){
+    else if (message.content.startsWith('=p ')){
         const channel = message.member.voiceChannel;
         if(channel){
             if(!message.guild.voiceConnection){
@@ -268,7 +266,7 @@ client.on('message', async message => {
 
     }
     //stop songs
-    else if (message.content === '/stop'){
+    else if (message.content === '=stop'){
         // Only try to join the sender's voice channel if they are in one themselves
         const channel = message.member.voiceChannel;
         if(channel){
@@ -282,7 +280,7 @@ client.on('message', async message => {
 
     }
     // skip songs
-    else if(message.content === '/skip')
+    else if(message.content === '=skip')
     {
         var server = servers[message.guild.id];
         if (!server || !server.queue[0]){
@@ -297,7 +295,7 @@ client.on('message', async message => {
         message.react('⭐');
     }
     //Rock paper scissors
-    else if(message.content.startsWith('/rps'))
+    else if(message.content.startsWith('=rps'))
     {
         var messages = message.content.slice(5).toLowerCase();
         var i = Math.floor(Math.random() * 3) ;
@@ -384,7 +382,7 @@ client.on('message', async message => {
 
     }
     //roll the dice!
-    else if(message.content.startsWith('/roll '))
+    else if(message.content.startsWith('=roll '))
     {
         let member = message.guild.member(message.author);
         let nickname = member ? member.displayName : null;
@@ -404,7 +402,7 @@ client.on('message', async message => {
 
     }
     //queue
-    else if(message.content === ('/queue'))
+    else if(message.content === ('=queue'))
     {
         if (!servers[message.guild.id]) {
 
@@ -428,7 +426,7 @@ client.on('message', async message => {
 
     }
     //leave's the voice channel
-    else if(message.content === ('/leave'))
+    else if(message.content === ('=leave'))
     {
         if (message.member.voiceChannel) {
             if(message.guild.voiceConnection) {
@@ -443,7 +441,7 @@ client.on('message', async message => {
             message.channel.send("You are not in a VoiceChannel!");
         }
     }
-    else if(message.content === ('/pause')){
+    else if(message.content === ('=pause')){
 
         var server = servers[message.guild.id];
         if (server.dispatcher.paused){
@@ -454,7 +452,7 @@ client.on('message', async message => {
         }
 
     }
-    else if(message.content === ('/resume')){
+    else if(message.content === ('=resume')){
         var server = servers[message.guild.id];
         if (server.dispatcher.paused){
             server.dispatcher.resume();
@@ -466,13 +464,13 @@ client.on('message', async message => {
 
     }
     //hate command for the sinon haters
-    else if(message.content == ('/hate'))
+    else if(message.content == ('=hate'))
     {
         counter += 1;
         message.channel.send('Sadly ' + counter + ' persons have hated me so far.');
     }
     //Feedback command for bugs or ideas
-    else if(message.content == ('/feedback'))
+    else if(message.content == ('=feedback'))
     {
         const embed = new Discord.RichEmbed();
         embed.setTitle('**Feedback for bugs and ideas!**');
@@ -482,7 +480,7 @@ client.on('message', async message => {
         message.channel.send({embed});
     }
     // Rusian Roulette
-    else if(message.content == ('/rr'))
+    else if(message.content == ('=rr'))
     {
         participants = [];
         const embed = new Discord.RichEmbed();
@@ -559,7 +557,7 @@ client.on('message', async message => {
         })
     }
     // Discord
-    else if(message.content === '/discord')
+    else if(message.content === '=discord')
     {
         message.channel.send('https://discord.gg/yQcB6mz');
     }
