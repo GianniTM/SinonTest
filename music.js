@@ -1,6 +1,7 @@
 //Make queue + add song.
 function Plays(message)
 {
+    message.channel.send('i come here');
     const channel = message.member.voiceChannel;
     if(channel){
         if(!message.guild.voiceConnection){
