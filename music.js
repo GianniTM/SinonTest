@@ -1,7 +1,6 @@
 //Make queue + add song.
-function Plays(message)
+export function Plays(message)
 {
-    message.channel.send('i come here');
     const channel = message.member.voiceChannel;
     if(channel){
         if(!message.guild.voiceConnection){
@@ -110,7 +109,7 @@ function Plays(message)
 
 
 //Plays the song if queue has no other songs stops but otherwise keeps going.
-function Play(connection, message)
+export function Play(connection, message)
 {
     var server = servers[message.guild.id];
     server.dispatcher = connection.playStream(YTDL(server.queue[0].link, {filter: "audioonly"}));

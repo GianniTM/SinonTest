@@ -9,6 +9,8 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
+import { Plays } from './music.js';
+import { Play } from './music.js';
 
 
 
@@ -145,7 +147,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')) {
-        Plays('whut');
+        Plays(message);
     }
     //stop songs
     else if (message.content === '=stop'){
