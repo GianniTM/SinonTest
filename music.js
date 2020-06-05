@@ -48,14 +48,14 @@ export function Plays(message)
                 }
 
                 var server = servers[message.guild.id];
-                mentionMessage = message.content.slice(3);
+                var mentionMessage = message.content.slice(3);
                 if (!server.queue[0]) {
                     message.member.voiceChannel.join().then(connection => {
 
                         search(mentionMessage, opts, function (err, results) {
 
                             if (err) return console.log(err);
-                            mentionMessage = results[0];
+                            var mentionMessage = results[0];
                             const title = results[0].title;
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:","https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
@@ -73,7 +73,7 @@ export function Plays(message)
 
                     search(mentionMessage, opts, function (err, results) {
                         if (err) return console.log(err);
-                        mentionMessage = results[0];
+                        var mentionMessage = results[0];
                         const title = results[0].title;
                         const embed = new Discord.RichEmbed();
                         embed.setAuthor("Queued:", message.author.displayAvatarURL);
