@@ -9,11 +9,12 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
-import * as lib  from './music.js';
+
 global.servers = {};
 
 client.on('ready', () => {
-    console.log('I am ready!');
+    const welcomeChannel = bot.channels.get("id", "716408255747981443")
+    welcomeChannel.sendMessage("I'm Ready to test!");
      client.user.setStatus('available')
      client.user.setPresence({
         game: {
@@ -143,7 +144,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')) {
-        lib.Plays(message);
+        Plays(message);
     }
     //stop songs
     else if (message.content === '=stop'){
