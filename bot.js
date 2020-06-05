@@ -141,7 +141,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')) {
-        import { Plays } from 'music.js';
+        import { Plays,Play } from 'music.js';
         Plays(message);
     }
     //stop songs
