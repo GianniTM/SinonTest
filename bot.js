@@ -9,7 +9,7 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
-
+import * as lib  from './music.js';
 global.servers = {};
 
 client.on('ready', () => {
@@ -143,7 +143,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')) {
-        Plays(message);
+        lib.Plays(message);
     }
     //stop songs
     else if (message.content === '=stop'){
