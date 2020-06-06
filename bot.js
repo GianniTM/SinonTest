@@ -168,7 +168,6 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')){
-        import { Plays } from './music.js';
         Plays(message);
     }
     // gif your game react
