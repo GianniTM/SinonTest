@@ -10,6 +10,7 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
+const { getVideoDurationInSeconds } = require('get-video-duration')
 module.exports = {
     name: 'p',
     description: 'p!',
@@ -59,6 +60,9 @@ module.exports = {
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
                             embed.setTitle(title);
+                            getVideoDurationInSeconds(server.queue[0].link).then((duration) => {
+                                embed.setDescription(duration)
+                            })
                             message.channel.send({embed}).then(m => {
                                 server.dispatcher.on("end",function () {
                                     m.delete()

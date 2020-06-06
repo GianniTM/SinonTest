@@ -10,6 +10,7 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
+
 module.exports = {
     name: 'queue',
     description: 'queue!',
