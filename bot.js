@@ -326,6 +326,7 @@ function Pause(message){
     }
     else{
         server.dispatcher.pause();
+        message.react("⏸");
     }
 }
 // PAUSE END //
@@ -338,6 +339,7 @@ function Resume(message)
     var server = servers[message.guild.id];
     if (server.dispatcher.paused){
         server.dispatcher.resume();
+        message.react("⏯")
 
     }
     else{
@@ -574,6 +576,38 @@ function Play(connection, message)
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
+// SKIP SONG START //
+function Skip(message)
+{
+    var server = servers[message.guild.id];
+    if (!server || !server.queue[0]){
+        message.channel.send("No song's currently playing")}
+    else{
+        server.dispatcher.end();
+        message.react("▶");
+}
+// SKIP SONG END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// STOP SONGS EMPTY QUEUE START //
+function Stop(message)
+{
+    const channel = message.member.voiceChannel;
+    if(channel){
+        var server = servers[message.guild.id];
+        server.queue = [];
+        server.dispatcher.end();
+        message.react("⏩");
+    }
+    else{
+        message.channel.send('Join a voice channel Please!')
+    }
+}
+// STOP SONGS EMPTY QUEUE END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 // DISCORD STATUS START //
 client.on('ready', () => {
     console.log('I am ready!');
@@ -639,6 +673,15 @@ client.on('message', async message => {
     else if (message.content.startsWith( prefix + 'p '))
     {
        Plays(message);
+    }
+    else if (message.content === '/stop')
+    {
+        Stop(message);
+    }
+    // skip songs
+    else if(message.content === '/skip')
+    {
+        Skip(message);
     }
     // gif your game react
     else if(message.content.startsWith('https://www.gifyourgame.com/'))
