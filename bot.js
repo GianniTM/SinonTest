@@ -14,6 +14,12 @@ var opts = {
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+// PREFIX START //
+const prefix = "=";
+// PREFIX END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 // HELP START //
 function Help(message) {
     const embed = new Discord.RichEmbed();
@@ -116,6 +122,121 @@ function Server(message){
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+// MENTION TEST START //
+function MentionTest(message){
+    var mention = message.mentions.users.first();
+    if (mention == null){
+        message.channel.send('pls tag someone');
+        return;
+    }
+    message.channel.send(`Hello ${mention} :D`);
+}
+// MENTION TEST END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// SEND PRIVATE MSG START //
+function SendPrivate(message){
+    var mention = message.mentions.users.first();
+    if (mention == null){
+        message.channel.send('pls tag someone');
+        return;
+    }
+    message.delete();
+    mentionMessage = message.content.slice(6);
+    mention.sendMessage (mentionMessage);
+}
+// SEND PRIVATE MSG END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// ROCK PAPER SCISSORS START//
+function RPS(message){
+    var messages = message.content.slice(5).toLowerCase();
+    var i = Math.floor(Math.random() * 3) ;
+    var listEN = [
+        'rock' ,
+        'paper',
+        'scissors'
+    ];
+    var listNL = [
+        'steen',
+        'papier',
+        'schaar'
+    ];
+    var choiceEN = listEN[i];
+    var choiceNL = listNL[i];
+    if(messages == 'rock' || messages == 'paper' || messages == 'scissors'){
+        if(messages == 'rock' && choiceEN == 'rock'){
+            message.channel.send("**We tied!** I chose Rock.");
+        }
+        else if(messages == 'rock' && choiceEN == 'paper'){
+            message.channel.send("**I won!** I chose Paper.");
+        }
+        else if(messages == 'rock' && choiceEN == 'scissors'){
+            message.channel.send("**You win!** I chose Scissors.");
+        }
+        else if(messages == 'paper' && choiceEN == 'rock'){
+            message.channel.send("**You win!** I chose Rock.");
+        }
+        else if(messages == 'scissors' && choiceEN == 'rock'){
+            message.channel.send("**I won!** I chose Rock.");
+        }
+        else if(messages == 'paper' && choiceEN == 'paper'){
+            message.channel.send("**We tied!** I chose Paper.");
+        }
+        else if(messages == 'paper' && choiceEN == 'scissors'){
+            message.channel.send("**I won!** I chose Scissors");
+        }
+        else if(messages == 'scissors' && choiceEN == 'scissors'){
+            message.channel.send("**We tied!** I chose Scissors.");
+        }
+        else if(messages == 'scissors' && choiceEN == 'paper'){
+            message.channel.send("**You win!** I chose Paper.");
+        }
+        else{
+            message.channel.send("Add another if not everything is implemented yet " + choiceEN + i);
+        }
+    }
+    else if(messages == 'steen' || messages == 'papier' || messages == 'schaar'){
+
+        if(messages == 'steen' && choiceNL == 'steen'){
+            message.channel.send("**Het is gelijkspel!** Ik koos Steen.");
+        }
+        else if(messages == 'steen' && choiceNL == 'papier'){
+            message.channel.send("**Ik win!** Ik koos Papier.");
+        }
+        else if(messages == 'steen' && choiceNL == 'schaar'){
+            message.channel.send("**Jij wint!** Ik koos Schaar.");
+        }
+        else if(messages == 'papier' && choiceNL == 'steen'){
+            message.channel.send("**Jij wint!** Ik koos Steen.");
+        }
+        else if(messages == 'schaar' && choiceNL == 'steen'){
+            message.channel.send("**Ik win!** Ik koos Steen.");
+        }
+        else if(messages == 'papier' && choiceNL == 'papier'){
+            message.channel.send("**Het is gelijkspel!** Ik koos Papier.");
+        }
+        else if(messages == 'papier' && choiceNL == 'schaar'){
+            message.channel.send("**Ik win!** Ik koos Schaar");
+        }
+        else if(messages == 'schaar' && choiceNL == 'schaar'){
+            message.channel.send("**Het is gelijkspel!** Ik koos Schaar.");
+        }
+        else if(messages == 'schaar' && choiceNL == 'papier'){
+            message.channel.send("**Jij wint!** Ik koos Papier.");
+        }
+        else{
+            message.channel.send("Add another if not everything is implemented yet " + choiceNL + i);
+        }
+    }
+    else{
+        message.channel.send("You didn't choose 1 of the options. The Languages you can play in are NL and EN");
+    }
+}
+// ROCK PAPER SCISSORS END //
+
 global.servers = {};
 
 client.on('ready', () => {
@@ -139,47 +260,38 @@ client.on('ready', () => {
 })();
 client.on('message', async message => {
     //getting sinon quotes
-    if (message.content === '=q')
+    if (message.content === prefix + 'q')
     {
         Quote(message);
     }
     // the help function
-    else if (message.content === '=help')
+    else if (message.content ===  prefix +'help')
     {
         Help(message);
     }
     // testing embed/ getting someone's avatar
-    else if (message.content.startsWith ('=avatar'))
+    else if (message.content.startsWith (prefix +'avatar'))
     {
         Avatar(message);
     }
     //getting the amount of members in the current server
-    else if (message.content === `=server`)
+    else if (message.content === prefix + `server`)
     {
         Server(message);
     }
     // saying hello to a mentioned person
-    else if (message.content.startsWith ('=u')){
-        var mention = message.mentions.users.first();
-        if (mention == null){
-            message.channel.send('pls tag someone');
-            return;
-        }
-        message.channel.send(`Hello ${mention} :D`);
+    else if (message.content.startsWith (prefix + 'u'))
+    {
+        MentionTest(message);
     }
     //sending a private message via the bot
-    else if (message.content.startsWith ('=send')) {
-        var mention = message.mentions.users.first();
-            if (mention == null){
-            message.channel.send('pls tag someone');
-            return;
-            }
-        message.delete();
-        mentionMessage = message.content.slice(6);
-        mention.sendMessage (mentionMessage);
+    else if (message.content.startsWith (prefix + 'send'))
+    {
+        SendPrivate(message);
     }
     // playing + queueing song
-    else if (message.content.startsWith('=p ')){
+    else if (message.content.startsWith( prefix + 'p '))
+    {
        // Plays(message);
     }
     // gif your game react
@@ -188,91 +300,9 @@ client.on('message', async message => {
         message.react('⭐');
     }
     //Rock paper scissors
-    else if(message.content.startsWith('=rps'))
+    else if(message.content.startsWith(prefix + '=rps'))
     {
-        var messages = message.content.slice(5).toLowerCase();
-        var i = Math.floor(Math.random() * 3) ;
-        var listEN = [
-            'rock' ,
-            'paper',
-            'scissors'
-        ];
-        var listNL = [
-            'steen',
-            'papier',
-            'schaar'
-        ];
-        var choiceEN = listEN[i];
-        var choiceNL = listNL[i];
-        if(messages == 'rock' || messages == 'paper' || messages == 'scissors'){
-            if(messages == 'rock' && choiceEN == 'rock'){
-                message.channel.send("**We tied!** I chose Rock.");
-            }
-            else if(messages == 'rock' && choiceEN == 'paper'){
-                message.channel.send("**I won!** I chose Paper.");
-            }
-            else if(messages == 'rock' && choiceEN == 'scissors'){
-                message.channel.send("**You win!** I chose Scissors.");
-            }
-            else if(messages == 'paper' && choiceEN == 'rock'){
-                message.channel.send("**You win!** I chose Rock.");
-            }
-            else if(messages == 'scissors' && choiceEN == 'rock'){
-                message.channel.send("**I won!** I chose Rock.");
-            }
-            else if(messages == 'paper' && choiceEN == 'paper'){
-                message.channel.send("**We tied!** I chose Paper.");
-            }
-            else if(messages == 'paper' && choiceEN == 'scissors'){
-                message.channel.send("**I won!** I chose Scissors");
-            }
-            else if(messages == 'scissors' && choiceEN == 'scissors'){
-                message.channel.send("**We tied!** I chose Scissors.");
-            }
-            else if(messages == 'scissors' && choiceEN == 'paper'){
-                message.channel.send("**You win!** I chose Paper.");
-            }
-            else{
-                message.channel.send("Add another if not everything is implemented yet " + choiceEN + i);
-            }
-        }
-        else if(messages == 'steen' || messages == 'papier' || messages == 'schaar'){
-
-            if(messages == 'steen' && choiceNL == 'steen'){
-                message.channel.send("**Het is gelijkspel!** Ik koos Steen.");
-            }
-            else if(messages == 'steen' && choiceNL == 'papier'){
-                message.channel.send("**Ik win!** Ik koos Papier.");
-            }
-            else if(messages == 'steen' && choiceNL == 'schaar'){
-                message.channel.send("**Jij wint!** Ik koos Schaar.");
-            }
-            else if(messages == 'papier' && choiceNL == 'steen'){
-                message.channel.send("**Jij wint!** Ik koos Steen.");
-            }
-            else if(messages == 'schaar' && choiceNL == 'steen'){
-                message.channel.send("**Ik win!** Ik koos Steen.");
-            }
-            else if(messages == 'papier' && choiceNL == 'papier'){
-                message.channel.send("**Het is gelijkspel!** Ik koos Papier.");
-            }
-            else if(messages == 'papier' && choiceNL == 'schaar'){
-                message.channel.send("**Ik win!** Ik koos Schaar");
-            }
-            else if(messages == 'schaar' && choiceNL == 'schaar'){
-                message.channel.send("**Het is gelijkspel!** Ik koos Schaar.");
-            }
-            else if(messages == 'schaar' && choiceNL == 'papier'){
-                message.channel.send("**Jij wint!** Ik koos Papier.");
-            }
-            else{
-                message.channel.send("Add another if not everything is implemented yet " + choiceNL + i);
-            }
-        }
-        else{
-            message.channel.send("You didn't choose 1 of the options. The Languages you can play in are NL and EN");
-        }
-
+        RPS(message);
     }
     //roll the dice!
     else if(message.content.startsWith('=roll '))
