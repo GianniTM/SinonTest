@@ -10,7 +10,7 @@ var opts = {
     key: process.env.YT_TOKEN
 };
 
-function Quote(Message){
+function Quote(message){
     var i = Math.floor(Math.random() * 15) + 1;
     var randomImg = "Images/sinon" + i + ".jpg"
     message.channel.send({files: [randomImg]});
