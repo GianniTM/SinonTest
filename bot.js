@@ -168,7 +168,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')){
-        //music.Plays(message);
+        music.Plays(message);
     }
     // gif your game react
     else if(message.content.startsWith('https://www.gifyourgame.com/'))
