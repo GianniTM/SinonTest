@@ -10,7 +10,30 @@ var opts = {
     key: process.env.YT_TOKEN
 };
 
+function Play(connection, message)
+{
+    var server = servers[message.guild.id];
+    server.dispatcher = connection.playStream(YTDL(server.queue[0].link, {filter: "audioonly"}));
+    server.dispatcher.on("end",function () {
+        server.queue.shift();
+        if (server.queue[0]){
+            const title = server.queue[0].title;
+            const embed = new Discord.RichEmbed();
+            embed.setAuthor("Now Playing:", "https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+            embed.setTitle(title)
+            message.channel.send({embed}).then(m => {
+                server.dispatcher.on("end",function () {
+                    m.delete();
+                })
+            })
+            Play(connection, message);
+        }
+        else{
 
+        }
+    });
+
+}
 
 global.servers = {};
 
