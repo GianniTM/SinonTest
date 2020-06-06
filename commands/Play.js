@@ -60,7 +60,7 @@ module.exports = {
                     }
 
                     message.member.voiceChannel.join().then(connection =>{
-                            let video = testAll();
+                            video = testAll();
                             mentionMessage = video;
                             const title = video.title;
                             const embed = new Discord.RichEmbed();
