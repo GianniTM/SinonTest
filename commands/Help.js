@@ -54,6 +54,9 @@ module.exports = {
             embed.addField(
                 '**Show the queue**','`=queue`'
             );
+            embed.addField(
+                '**Leaves the voiceChannel**','`=leave`'
+            );
             embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
             message.channel.send({embed});
         }
