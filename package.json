@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "install": "node music.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
