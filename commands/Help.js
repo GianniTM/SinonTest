@@ -17,20 +17,18 @@ module.exports = {
         var messages = args
         if(messages == "minigames"){
             const embed = new Discord.RichEmbed();
-            embed.setTitle("**Sinon Commands**");
-            embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-            embed.setDescription("Enjoyy!!!");
+            embed.setTitle("**Minigame Commands**");
             embed.addField(
-                '**Music Commands**', '`=help music`'
+                '**Rock Paper Scissors**', '`=rps [Rock, paper, scissors]`'
             );
             embed.addField(
-                '**Minigame Commands**','`=help minigames`'
+                '**Russian Roulette**','`=rr`'
             );
             embed.addField(
-                "**Server Commands**",'`=help server`'
+                "**Roll a dice**",'`=roll [max number]`'
             );
             embed.addField(
-                '**Bug/Ideas Commands**','`=help Main`'
+                '**NL Version of Rock Paper Scissors**','`=rps [Steen, Papier, Schaar]`'
             );
             embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
             message.channel.send({embed});
@@ -59,6 +57,30 @@ module.exports = {
             embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
             message.channel.send({embed});
         }
+        else if(messages == "server"){
+            const embed = new Discord.RichEmbed();
+            embed.setTitle("**Server Commands**");
+            embed.addField(
+                '**Get avatar of a user**', '`=avatar [Mentioned user]`'
+            );
+            embed.addField(
+                '**Send private msg to a user**','`=send [Mentioned user] [Message]`'
+            );
+            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            message.channel.send({embed});
+        }
+        else if(messages == "main"){
+            const embed = new Discord.RichEmbed();
+            embed.setTitle("**Bug/Idea Commands**");
+            embed.addField(
+                '**Give feedback**', '`=feedback`'
+            );
+            embed.addField(
+                '**Get main discord server**','`=discord`'
+            );
+            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            message.channel.send({embed});
+        }
         else{
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Sinon Commands**");
@@ -74,7 +96,7 @@ module.exports = {
                 "**Server Commands**",'`=help server`'
             );
             embed.addField(
-                '**Bug/Ideas Commands**','`=help Main`'
+                '**Bug/Idea Commands**','`=help main`'
             );
             embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
             message.channel.send({embed});
