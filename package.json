@@ -1,10 +1,11 @@
 {
-  "name": "Test",
-  "description": "Test",
+  "name": "SinonTest",
+  "description": "Test for sinon",
   "version": "0.0.0",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
