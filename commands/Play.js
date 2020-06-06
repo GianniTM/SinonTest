@@ -67,7 +67,7 @@ module.exports = {
                             })
                             server.queue.push(mentionMessage);
                             Play(connection, message);
-                        });
+
                     })
 
 
