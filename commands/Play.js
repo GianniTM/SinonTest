@@ -62,6 +62,7 @@ module.exports = {
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
                             embed.setTitle(title);
+                            embed.setDescription(video.duration.hours + ':' + video.duration.minutes + ':' + video.duration.seconds);
                             message.channel.send({embed}).then(m => {
                                 server.dispatcher.on("end",function () {
                                     m.delete()
