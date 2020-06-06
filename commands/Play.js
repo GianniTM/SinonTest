@@ -56,6 +56,7 @@ module.exports = {
                     message.member.voiceChannel.join().then(connection =>{
                         const video = youtube.searchVideos(mentionMessage)
                             mentionMessage = video;
+                        console.log(video);
                             const title = video.title;
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
