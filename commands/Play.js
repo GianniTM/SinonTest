@@ -60,7 +60,8 @@ module.exports = {
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
                             embed.setTitle(title);
-                            getVideoDurationInSeconds(results[0].link).then((duration) => {
+                            const stream = fs.createReadStream(results[0].link)
+                            getVideoDurationInSeconds(stream).then((duration) => {
                                 message.channel.send(duration);
                             })
                             message.channel.send({embed}).then(m => {
