@@ -61,7 +61,7 @@ module.exports = {
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
                             embed.setTitle(title);
                             getVideoDurationInSeconds(results[0].link).then((duration) => {
-                                embed.setDescription(duration)
+                                message.channel.send(duration);
                             })
                             message.channel.send({embed}).then(m => {
                                 server.dispatcher.on("end",function () {
