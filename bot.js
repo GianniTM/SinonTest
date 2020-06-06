@@ -1,3 +1,4 @@
+// MAKE VARIABLES OF IMPORTED JS FILES START //
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { ErelaClient } = require('erela.js')
@@ -9,6 +10,11 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
+// MAKE VARIABLES OF IMPORTED JS FILES END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// HELP START //
 function Help(message) {
     const embed = new Discord.RichEmbed();
     embed.setTitle("**Functions**");
@@ -63,11 +69,53 @@ function Help(message) {
     embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
     message.channel.send({embed});
 }
+// HELP END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// QUOTE START //
 function Quote(message){
     var i = Math.floor(Math.random() * 15) + 1;
     var randomImg = "Images/sinon" + i + ".jpg"
     message.channel.send({files: [randomImg]});
 }
+// QUOTE END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// AVATAR START //
+function Avatar(message){
+    const embed = new Discord.RichEmbed();
+    var mention = message.mentions.users.first();
+    if (mention == null){
+        embed.setTitle("Your Avatar");
+        embed.setThumbnail(message.author.displayAvatarURL);
+        embed.setColor("37bceb");
+        message.channel.send({embed});
+    }
+    else{
+        embed.setTitle(`${mention.username}'s avatar!`);
+        embed.setThumbnail(mention.displayAvatarURL);
+        embed.setColor("f7d456");
+        message.channel.send({embed});
+    }
+}
+// AVATAR END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// SERVER START //
+function Server(message){
+    const embed = new Discord.RichEmbed();
+    embed.setTitle(message.guild.name);
+    embed.setThumbnail(message.guild.iconURL)
+    embed.setDescription(`Current Members: ${message.guild.memberCount}`);
+    message.channel.send({embed});
+}
+// SERVER END //
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 global.servers = {};
 
 client.on('ready', () => {
@@ -99,33 +147,16 @@ client.on('message', async message => {
     else if (message.content === '=help')
     {
         Help(message);
-
     }
     // testing embed/ getting someone's avatar
     else if (message.content.startsWith ('=avatar'))
     {
-        const embed = new Discord.RichEmbed();
-        var mention = message.mentions.users.first();
-        if (mention == null){
-            embed.setTitle("Your Avatar");
-            embed.setThumbnail(message.author.displayAvatarURL);
-            embed.setColor("37bceb");
-            message.channel.send({embed});
-        }
-        else{
-        embed.setTitle(`${mention.username}'s avatar!`);
-        embed.setThumbnail(mention.displayAvatarURL);
-        embed.setColor("f7d456");
-        message.channel.send({embed});
-        }
+        Avatar(message);
     }
     //getting the amount of members in the current server
-    else if (message.content === `=server`) {
-        const embed = new Discord.RichEmbed();
-        embed.setTitle(message.guild.name);
-        embed.setThumbnail(message.guild.iconURL)
-        embed.setDescription(`Current Members: ${message.guild.memberCount}`);
-        message.channel.send({embed});
+    else if (message.content === `=server`)
+    {
+        Server(message);
     }
     // saying hello to a mentioned person
     else if (message.content.startsWith ('=u')){
