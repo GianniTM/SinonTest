@@ -15,7 +15,7 @@ module.exports = {
     description: 'help',
     execute(message, args) {
         var messages = args
-        if(messages === "minigames"){
+        if(messages == "minigames"){
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Sinon Commands**");
             embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
@@ -35,7 +35,7 @@ module.exports = {
             embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
             message.channel.send({embed});
         }
-        else if(messages === "music"){
+        else if(messages == "music"){
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Music Commands**");
             embed.addField(
