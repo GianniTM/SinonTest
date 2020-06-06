@@ -16,12 +16,14 @@ var opts = {
 ///////////////////////////////////////////////////////////////////////////////////////
 // PREFIX START //
 const prefix = "=";
+global.servers = {};
 // PREFIX END //
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // HELP START //
-function Help(message) {
+function Help(message)
+{
     const embed = new Discord.RichEmbed();
     embed.setTitle("**Functions**");
     embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
@@ -80,7 +82,8 @@ function Help(message) {
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // QUOTE START //
-function Quote(message){
+function Quote(message)
+{
     var i = Math.floor(Math.random() * 15) + 1;
     var randomImg = "Images/sinon" + i + ".jpg"
     message.channel.send({files: [randomImg]});
@@ -90,7 +93,8 @@ function Quote(message){
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // AVATAR START //
-function Avatar(message){
+function Avatar(message)
+{
     const embed = new Discord.RichEmbed();
     var mention = message.mentions.users.first();
     if (mention == null){
@@ -111,7 +115,8 @@ function Avatar(message){
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // SERVER START //
-function Server(message){
+function Server(message)
+{
     const embed = new Discord.RichEmbed();
     embed.setTitle(message.guild.name);
     embed.setThumbnail(message.guild.iconURL)
@@ -123,7 +128,8 @@ function Server(message){
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // MENTION TEST START //
-function MentionTest(message){
+function MentionTest(message)
+{
     var mention = message.mentions.users.first();
     if (mention == null){
         message.channel.send('pls tag someone');
@@ -136,7 +142,8 @@ function MentionTest(message){
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 // SEND PRIVATE MSG START //
-function SendPrivate(message){
+function SendPrivate(message)
+{
     var mention = message.mentions.users.first();
     if (mention == null){
         message.channel.send('pls tag someone');
@@ -151,7 +158,8 @@ function SendPrivate(message){
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 // ROCK PAPER SCISSORS START//
-function RPS(message){
+function RPS(message)
+{
     var messages = message.content.slice(5).toLowerCase();
     var i = Math.floor(Math.random() * 3) ;
     var listEN = [
@@ -236,9 +244,205 @@ function RPS(message){
     }
 }
 // ROCK PAPER SCISSORS END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// DICE ROLL START //
+function Roll(message)
+{
+    let member = message.guild.member(message.author);
+    let nickname = member ? member.displayName : null;
+    var messages = message.content.slice(6).toLowerCase();
+    var i = Math.floor(Math.random() * parseInt(messages)) + 1 ;
+    if(i == '69'){
+        message.channel.send("https://tenor.com/view/kevin-the-office-smirk-gif-5248324");}
+    if(messages == '69'){
+        message.channel.send("https://tenor.com/view/office-the-kevin-from-wine-gif-13397053");
+    }
+    else if(messages == '420'){
+        message.channel.send("https://tenor.com/view/afroman-high-baked-gif-5764943");
+    }
+    else{
+        message.channel.send(nickname + ', You rolled a ' + i + '!');
+    }
+}
+// DICE ROLL END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// QUEUE START //
+function Queue(message)
+{
+    if (!servers[message.guild.id]) {
 
-global.servers = {};
+        servers[message.guild.id] = {queue: []}
+    }
+    var server = servers[message.guild.id];
+    if(!server.queue[0]){
+        const embed = new Discord.RichEmbed();
+        embed.setAuthor("Queue:", message.author.displayAvatarURL);
+        embed.setTitle("What are you looking at? There is nothing here!");
+        message.channel.send({embed});
+    }
+    else{
+        const embed = new Discord.RichEmbed();
+        embed.setAuthor("Queue:", message.author.displayAvatarURL);
+        for(song of server.queue){
+            embed.addField(song.title, song.channelTitle)
+        }
+        message.channel.send({embed});
+    }
 
+}
+// QUEUE END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// LEAVE START //
+function Leave(message)
+{
+    if (message.member.voiceChannel) {
+        if(message.guild.voiceConnection) {
+            message.member.voiceChannel.leave()
+            message.react('👋');
+        }
+        else{
+            message.channel.send("I'm not in a VoiceChannel!")
+        }
+    }
+    else {
+        message.channel.send("You are not in a VoiceChannel!");
+    }
+}
+// LEAVE END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// PAUSE START //
+function Pause(message){
+    var server = servers[message.guild.id];
+    if (server.dispatcher.paused){
+        message.channel.send('dispatched is already paused')
+    }
+    else{
+        server.dispatcher.pause();
+    }
+}
+// PAUSE END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// RESUME START //
+function Resume(message)
+{
+    var server = servers[message.guild.id];
+    if (server.dispatcher.paused){
+        server.dispatcher.resume();
+
+    }
+    else{
+        message.channel.send('dispatched is not paused');
+    }
+
+}
+// RESUME END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// FEEDBACK START //
+function Feedback(message){
+    const embed = new Discord.RichEmbed();
+    embed.setTitle('**Feedback for bugs and ideas!**');
+    embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+    embed.setDescription(`You can report a bug or give us ideas for more stuff to implement in the bot using the link in the title!`);
+    embed.setURL("https://forms.gle/V5jdU9sBuVPWBzEk8");
+    message.channel.send({embed});
+}
+// FEEDBACK END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// RUSSIAN ROULLETTE START //
+function RR(message){
+    participants = [];
+    const embed = new Discord.RichEmbed();
+    embed.setTitle('**Russian Roulette**');
+    embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+    embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
+    embed.setFooter("Time remaining 15 seconds");
+    message.channel.send(embed).then(sentEmbed => {
+        sentEmbed.react("🔫");
+        const filter = (reaction, user) => {
+            if (reaction.emoji.name === "🔫"){
+                participants.push(user.id);
+            }
+            return reaction.emoji.name === "🔫";
+        };
+        setTimeout(function(){
+            embed.setTitle('**Russian Roulette**');
+            embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+            embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
+            embed.setFooter("Time remaining 10 seconds");
+            sentEmbed.edit(embed);
+        }, 5000);
+        setTimeout(function(){
+            embed.setTitle('**Russian Roulette**');
+            embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+            embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
+            embed.setFooter("Time remaining 5 seconds");
+            sentEmbed.edit(embed);
+        }, 10000);
+        sentEmbed.awaitReactions(filter, { time: 15000 })
+            .then(collected => {var i = Math.floor(Math.random() * (participants.length - 1) + 1);
+                embed.setTitle('**Russian Roulette**');
+                embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+                embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!`);
+                embed.setFooter("Time remaining 0 seconds");
+                const shot = sentEmbed.guild.members.get(participants[i]);
+                if(shot.id === '271720534767697930') {
+                    embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!\nHas **Not** been muted due to **Owner** rights`);
+                    sentEmbed.edit(embed);
+                }
+                else{
+                    let muterole = message.guild.roles.find(`name`, "muted");
+                    //start of create role
+                    if(!muterole){
+                        try{
+                            muterole =  message.guild.createRole({
+                                name: "muted",
+                                color: "#000000",
+                                permissions:[]
+                            })
+                            message.guild.channels.forEach(async (channel, id) => {
+                                await channel.overwritePermissions(muterole, {
+                                    SEND_MESSAGES: false,
+                                    ADD_REACTIONS: false
+                                });
+                            });
+                        }catch(e){
+                            console.log(e.stack);
+                        }
+                        shot.addRole(muterole.id);
+                    }
+                    //end of create role
+                    mutetime = 120000;
+                    shot.addRole(muterole.id);
+                    embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!\nAnd has been muted for 2 Minutes.`);
+                    sentEmbed.edit(embed);
+                    setTimeout(function(){
+                        shot.removeRole(muterole.id);
+                    }, mutetime);
+                }
+
+
+            })
+    })
+}
+// RUSSIAN ROULLETTE END//
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// DISCORD STATUS START //
 client.on('ready', () => {
     console.log('I am ready!');
      client.user.setStatus('available')
@@ -248,6 +452,11 @@ client.on('ready', () => {
         }
     });
 });
+// DISCORD STATUS END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// MUSIC CLIENT START //
 (async () => {
    await client.login(process.env.BOT_TOKEN);
    client.music = new ErelaClient(client, [
@@ -258,6 +467,11 @@ client.on('ready', () => {
        }
    ]);
 })();
+// MUSIC CLIENT END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// COMMANDS START //
 client.on('message', async message => {
     //getting sinon quotes
     if (message.content === prefix + 'q')
@@ -305,182 +519,46 @@ client.on('message', async message => {
         RPS(message);
     }
     //roll the dice!
-    else if(message.content.startsWith('=roll '))
+    else if(message.content.startsWith(prefix + 'roll '))
     {
-        let member = message.guild.member(message.author);
-        let nickname = member ? member.displayName : null;
-        var messages = message.content.slice(6).toLowerCase();
-        var i = Math.floor(Math.random() * parseInt(messages)) + 1 ;
-        if(i == '69'){
-                message.channel.send("https://tenor.com/view/kevin-the-office-smirk-gif-5248324");}
-        if(messages == '69'){
-            message.channel.send("https://tenor.com/view/office-the-kevin-from-wine-gif-13397053");
-        }
-        else if(messages == '420'){
-            message.channel.send("https://tenor.com/view/afroman-high-baked-gif-5764943");
-        }
-        else{
-            message.channel.send(nickname + ', You rolled a ' + i + '!');
-        }
-
+        Roll(message);
     }
     //queue
-    else if(message.content === ('=queue'))
+    else if(message.content === ( prefix + 'queue'))
     {
-        if (!servers[message.guild.id]) {
-
-            servers[message.guild.id] = {queue: []}
-        }
-        var server = servers[message.guild.id];
-        if(!server.queue[0]){
-            const embed = new Discord.RichEmbed();
-            embed.setAuthor("Queue:", message.author.displayAvatarURL);
-            embed.setTitle("What are you looking at? There is nothing here!");
-            message.channel.send({embed});
-        }
-        else{
-            const embed = new Discord.RichEmbed();
-            embed.setAuthor("Queue:", message.author.displayAvatarURL);
-            for(song of server.queue){
-                embed.addField(song.title, song.channelTitle)
-            }
-            message.channel.send({embed});
-        }
-
+        Queue(message);
     }
     //leave's the voice channel
-    else if(message.content === ('=leave'))
+    else if(message.content === ( prefix + 'leave'))
     {
-        if (message.member.voiceChannel) {
-            if(message.guild.voiceConnection) {
-                message.member.voiceChannel.leave()
-                message.react('👋');
-            }
-            else{
-                message.channel.send("I'm not in a VoiceChannel!")
-                }
-        }
-        else {
-            message.channel.send("You are not in a VoiceChannel!");
-        }
+        Leave(message);
     }
-    else if(message.content === ('=pause')){
-
-        var server = servers[message.guild.id];
-        if (server.dispatcher.paused){
-            message.channel.send('dispatched is already paused')
-        }
-        else{
-            server.dispatcher.pause();
-        }
-
+    else if(message.content === (prefix + 'pause'))
+    {
+        Pause(message);
     }
-    else if(message.content === ('=resume')){
-        var server = servers[message.guild.id];
-        if (server.dispatcher.paused){
-            server.dispatcher.resume();
-
-        }
-        else{
-            message.channel.send('dispatched is not paused');
-        }
-
+    else if(message.content === (prefix + 'resume'))
+    {
+        Resume(message);
     }
     //hate command for the sinon haters
-    else if(message.content == ('=hate'))
+    else if(message.content == (prefix + 'hate'))
     {
         counter += 1;
         message.channel.send('Sadly ' + counter + ' persons have hated me so far.');
     }
     //Feedback command for bugs or ideas
-    else if(message.content == ('=feedback'))
+    else if(message.content == (prefix + 'feedback'))
     {
-        const embed = new Discord.RichEmbed();
-        embed.setTitle('**Feedback for bugs and ideas!**');
-        embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-        embed.setDescription(`You can report a bug or give us ideas for more stuff to implement in the bot using the link in the title!`);
-        embed.setURL("https://forms.gle/V5jdU9sBuVPWBzEk8");
-        message.channel.send({embed});
+        Feedback(message);
     }
     // Rusian Roulette
-    else if(message.content == ('=rr'))
+    else if(message.content == (prefix + 'rr'))
     {
-        participants = [];
-        const embed = new Discord.RichEmbed();
-        embed.setTitle('**Russian Roulette**');
-        embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-        embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
-        embed.setFooter("Time remaining 15 seconds");
-        message.channel.send(embed).then(sentEmbed => {
-            sentEmbed.react("🔫");
-            const filter = (reaction, user) => {
-                if (reaction.emoji.name === "🔫"){
-                    participants.push(user.id);
-                }
-                return reaction.emoji.name === "🔫";
-            };
-            setTimeout(function(){
-                embed.setTitle('**Russian Roulette**');
-                embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-                embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
-                embed.setFooter("Time remaining 10 seconds");
-                sentEmbed.edit(embed);
-            }, 5000);
-            setTimeout(function(){
-                embed.setTitle('**Russian Roulette**');
-                embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-                embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!`);
-                embed.setFooter("Time remaining 5 seconds");
-                sentEmbed.edit(embed);
-            }, 10000);
-            sentEmbed.awaitReactions(filter, { time: 15000 })
-                .then(collected => {var i = Math.floor(Math.random() * (participants.length - 1) + 1);
-                    embed.setTitle('**Russian Roulette**');
-                    embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
-                    embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!`);
-                    embed.setFooter("Time remaining 0 seconds");
-                    const shot = sentEmbed.guild.members.get(participants[i]);
-                    if(shot.id === '271720534767697930') {
-                        embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!\nHas **Not** been muted due to **Owner** rights`);
-                        sentEmbed.edit(embed);
-                    }
-                    else{
-                        let muterole = message.guild.roles.find(`name`, "muted");
-                        //start of create role
-                        if(!muterole){
-                            try{
-                                muterole =  message.guild.createRole({
-                                    name: "muted",
-                                    color: "#000000",
-                                    permissions:[]
-                                })
-                                message.guild.channels.forEach(async (channel, id) => {
-                                    await channel.overwritePermissions(muterole, {
-                                        SEND_MESSAGES: false,
-                                        ADD_REACTIONS: false
-                                    });
-                                });
-                            }catch(e){
-                                console.log(e.stack);
-                            }
-                            shot.addRole(muterole.id);
-                        }
-                        //end of create role
-                        mutetime = 120000;
-                        shot.addRole(muterole.id);
-                        embed.setDescription(`Started by <@${message.author.id}>\nReact with the 🔫 emoji to partcipate!\n**Winner:** <@${participants[i]}> was shot to death!\nAnd has been muted for 2 Minutes.`);
-                        sentEmbed.edit(embed);
-                        setTimeout(function(){
-                            shot.removeRole(muterole.id);
-                        }, mutetime);
-                    }
-
-
-                })
-        })
+        RR(message);
     }
     // Discord
-    else if(message.content === '=discord')
+    else if(message.content === prefix + 'discord')
     {
         message.channel.send('https://discord.gg/yQcB6mz');
     }
@@ -488,5 +566,9 @@ client.on('message', async message => {
 
 
 });
-// THIS  MUST  BE  THIS  WAY
+// COMMANDS END //
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+// BOT TOKEN //
 client.login(process.env.BOT_TOKEN);
