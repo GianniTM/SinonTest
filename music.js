@@ -1,5 +1,5 @@
 //Make queue + add song.
-function Plays(message)
+export function Plays(message)
 {
     const channel = message.member.voiceChannel;
     if(channel){
