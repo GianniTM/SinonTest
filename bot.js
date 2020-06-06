@@ -675,12 +675,12 @@ client.on('message', async message => {
     {
        Plays(message);
     }
-    else if (message.content === '/stop')
+    else if (message.content === prefix + 'stop')
     {
         Stop(message);
     }
     // skip songs
-    else if(message.content === '/skip')
+    else if(message.content === prefix + 'skip')
     {
         Skip(message);
     }
