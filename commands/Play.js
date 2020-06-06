@@ -14,7 +14,7 @@ module.exports = {
                         servers[message.guild.id] = {queue: []}
                     }
                     var server = servers[message.guild.id];
-                    mentionMessage = args;
+                    mentionMessage = message.content.slice(3);
                     message.member.voiceChannel.join().then(connection =>{
                         search(mentionMessage, opts, function(err, results) {
                             if(err) return console.log(err);
@@ -49,7 +49,7 @@ module.exports = {
                     }
 
                     var server = servers[message.guild.id];
-                    var mentionMessage = args;
+                    var mentionMessage = message.content.slice(3);
                     if (!server.queue[0]) {
                         message.member.voiceChannel.join().then(connection => {
 
