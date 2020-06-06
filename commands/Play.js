@@ -53,14 +53,10 @@ module.exports = {
                     }
                     var server = servers[message.guild.id];
                     mentionMessage = message.content.slice(3);
+                    testAll(mentionMessage);
                     async function testAll(mentionMessage) {
                         const video = await youtube.searchVideos(mentionMessage)
-                        console.log(video);
-                        return(video);
-                    }
-
-                    message.member.voiceChannel.join().then(connection =>{
-                            video = testAll(mentionMessage);
+                        message.member.voiceChannel.join().then(connection =>{
                             mentionMessage = video;
                             const title = video.title;
                             const embed = new Discord.RichEmbed();
@@ -74,7 +70,10 @@ module.exports = {
                             server.queue.push(mentionMessage);
                             Play(connection, message);
 
-                    })
+                        })
+                    }
+
+
 
 
                 }
