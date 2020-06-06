@@ -109,7 +109,7 @@ export function Plays(message)
 
 
 //Plays the song if queue has no other songs stops but otherwise keeps going.
-export function Play(connection, message)
+function Play(connection, message)
 {
     var server = servers[message.guild.id];
     server.dispatcher = connection.playStream(YTDL(server.queue[0].link, {filter: "audioonly"}));

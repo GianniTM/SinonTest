@@ -10,8 +10,12 @@ var opts = {
     key: process.env.YT_TOKEN
 };
 
+
+
 global.servers = {};
+
 client.on('ready', () => {
+    console.log('I am ready!');
      client.user.setStatus('available')
      client.user.setPresence({
         game: {
@@ -140,9 +144,103 @@ client.on('message', async message => {
         mention.sendMessage (mentionMessage);
     }
     // playing + queueing song
-    else if (message.content.startsWith('=p ')) {
-        import { Plays,Play } from 'music.js';
-        Plays(message);
+    else if (message.content.startsWith('=p ')){
+        const channel = message.member.voiceChannel;
+        if(channel){
+            if(!message.guild.voiceConnection){
+                if (message.content.length <= 3){
+                    message.channel.send('Pleas provide a link or searchterm!');
+                }
+                else{
+                    if (!servers[message.guild.id]){
+
+                        servers[message.guild.id] = {queue: []}
+                    }
+                    var server = servers[message.guild.id];
+                    mentionMessage = message.content.slice(3);
+                        message.member.voiceChannel.join().then(connection =>{
+                            search(mentionMessage, opts, function(err, results) {
+                                if(err) return console.log(err);
+                                mentionMessage = results[0];
+                                const title = results[0].title;
+                                const embed = new Discord.RichEmbed();
+                                embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                                embed.setTitle(title);
+                                message.channel.send({embed}).then(m => {
+                                    server.dispatcher.on("end",function () {
+                                        m.delete()
+                                    })
+                                })
+                                server.queue.push(mentionMessage);
+                                Play(connection, message);
+                            });
+                        })
+
+
+                }
+
+
+            }
+            else{
+                if (message.content.length <= 3){
+                    message.channel.send('Pleas provide a link or searchterm!');
+                }
+                else {
+                    if (!servers[message.guild.id]) {
+
+                        servers[message.guild.id] = {queue: []}
+                    }
+
+                    var server = servers[message.guild.id];
+                    mentionMessage = message.content.slice(3);
+                    if (!server.queue[0]) {
+                        message.member.voiceChannel.join().then(connection => {
+
+                            search(mentionMessage, opts, function (err, results) {
+
+                                if (err) return console.log(err);
+                                mentionMessage = results[0];
+                                const title = results[0].title;
+                                const embed = new Discord.RichEmbed();
+                                embed.setAuthor("Now Playing:","https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
+                                embed.setTitle(title);
+                                message.channel.send({embed}).then(m => {
+                                    server.dispatcher.on("end", function () {
+                                        m.delete()
+                                    })
+                                })
+                                server.queue.push(mentionMessage);
+                                Play(connection, message);
+                            });
+                        })
+                    } else {
+
+                        search(mentionMessage, opts, function (err, results) {
+                            if (err) return console.log(err);
+                            mentionMessage = results[0];
+                            const title = results[0].title;
+                            const embed = new Discord.RichEmbed();
+                            embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                            embed.setTitle(title);
+                            message.channel.send({embed}).then(m => {
+                                server.dispatcher.on("end", function () {
+                                    m.delete()
+                                })
+                            })
+                            server.queue.push(mentionMessage);
+
+                        });
+                    }
+                }
+
+
+            }
+
+        }
+        else{
+            message.reply('Join a voice channel Please!')
+        }
+
     }
     //stop songs
     else if (message.content === '=stop'){
