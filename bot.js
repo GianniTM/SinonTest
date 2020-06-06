@@ -300,7 +300,7 @@ client.on('message', async message => {
         message.react('⭐');
     }
     //Rock paper scissors
-    else if(message.content.startsWith(prefix + '=rps'))
+    else if(message.content.startsWith(prefix + 'rps'))
     {
         RPS(message);
     }
