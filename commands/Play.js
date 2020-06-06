@@ -54,17 +54,14 @@ module.exports = {
                     var server = servers[message.guild.id];
                     mentionMessage = message.content.slice(3);
                     async function testAll() {
-                        const video1 = await youtube.getVideo("https://www.youtube.com/watch?v=5NPBIwQyPWE");
-                        const video2 = await youtube.getVideoByID("5NPBIwQyPWE");
-                        const video3 = await youtube.searchVideos("big poppa biggie smalls");
-
-                        console.log(video1, video2, video3);
-                    }
-                    testAll();
-                    message.member.voiceChannel.join().then(connection =>{
-                        const video = youtube.searchVideos(mentionMessage)
-                            mentionMessage = video;
+                        const video = await youtube.searchVideos(mentionMessage)
                         console.log(video);
+                        return(video);
+                    }
+
+                    message.member.voiceChannel.join().then(connection =>{
+                            let video = testAll();
+                            mentionMessage = video;
                             const title = video.title;
                             const embed = new Discord.RichEmbed();
                             embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
