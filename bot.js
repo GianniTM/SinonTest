@@ -5,7 +5,6 @@ const YTDL = require('ytdl-core');
 const { stripIndents } = require("common-tags")
 var search = require('youtube-search');
 var counter = 1;
-const music = require('music.js');
 var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
@@ -169,7 +168,7 @@ client.on('message', async message => {
     }
     // playing + queueing song
     else if (message.content.startsWith('=p ')){
-        music.Plays(message);
+        //music.Plays(message);
     }
     // gif your game react
     else if(message.content.startsWith('https://www.gifyourgame.com/'))
