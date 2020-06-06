@@ -14,7 +14,7 @@ module.exports = {
     name: 'help',
     description: 'help',
     execute(message, args) {
-        if(!args){
+        if(args){
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Sinon Commands**");
             embed.setThumbnail("https://images-ext-2.discordapp.net/external/C5rK2371x-fIsGosTVXQo1IzhaKIXpe6ol9Zgk8KrIw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/713003111945470013/0a883c7fe46b95b79b79e2e7a0021d5b.png?width=677&height=677");
