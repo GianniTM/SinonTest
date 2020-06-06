@@ -1,3 +1,4 @@
+require('music.js')();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { ErelaClient } = require('erela.js')
@@ -57,7 +58,7 @@ client.on('ready', () => {
    ]);
 })();
 client.on('message', async message => {
-    //getting sino quotes
+    //getting sinon quotes
     if (message.content === '=q')
     {
         var i = Math.floor(Math.random() * 15) + 1;
