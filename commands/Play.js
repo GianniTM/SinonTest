@@ -149,7 +149,6 @@ module.exports = {
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 try{
                     const videoArray1 = await youtube.getPlaylist(mentionMessage);
-                    message.member.voiceChannel.join().then(connection =>{
                         for(song of videoArray1) {
                             mentionMessage = song;
                             server.queue.push(mentionMessage);
@@ -170,7 +169,7 @@ module.exports = {
                             server.dispatcher.on("end",function () {
                                 m.delete();
                             })
-                        })
+
                     })
                 }
                 //invalid link
@@ -206,11 +205,7 @@ module.exports = {
                     embed.setDescription( " Nothing, Your song is invalid or private!!");
                     message.channel.send({embed});
                 }
-
             }
-
-
-
         }
         //Play a song
         function Play(connection, message)
@@ -232,10 +227,8 @@ module.exports = {
                     Play(connection, message);
                 }
                 else{
-
                 }
             });
-
         }
         const channel = message.member.voiceChannel;
         if(channel){
@@ -245,20 +238,12 @@ module.exports = {
                 }
                 else{
                     if (!servers[message.guild.id]){
-
                         servers[message.guild.id] = {queue: []}
                     }
                     var server = servers[message.guild.id];
                     mentionMessage = message.content.slice(3);
                     PlayAll(mentionMessage);
-
-
-
-
-
                 }
-
-
             }
             else{
                 if (message.content.length <= 3){
@@ -266,7 +251,6 @@ module.exports = {
                 }
                 else {
                     if (!servers[message.guild.id]) {
-
                         servers[message.guild.id] = {queue: []}
                     }
                     if(message.guild.voiceConnection.channel === message.member.voiceChannel){
@@ -276,18 +260,13 @@ module.exports = {
                             PlayAll(mentionMessage);
                         } else {
                             QueueAll(mentionMessage)
-
                         }
                     }
                     else{
                         message.channel.send("It seems that you are not in the same VoiceChannel as the bot. ")
                     }
-
                 }
-
-
             }
-
         }
         else{
             message.reply('Join a voice channel Please!')
