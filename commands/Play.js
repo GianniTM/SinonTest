@@ -42,7 +42,7 @@ module.exports = {
             // invalid yt link
         catch(err){
                 const embed = new Discord.RichEmbed();
-                embed.title("playing:");
+                embed.setTitle("playing:");
                 embed.setDescription( " Nothing, Your song is invalid or private!!");
                 message.channel.send({embed});
             }
@@ -111,7 +111,7 @@ module.exports = {
             // no results
         catch(err){
                 const embed = new Discord.RichEmbed();
-                embed.title("Queued:");
+                embed.setTitle("Queued:");
                 embed.setDescription( "Nothing, Your song is invalid or private!!");
                 message.channel.send({embed});
             }
@@ -189,7 +189,7 @@ module.exports = {
                     const title = video.title;
                     const embed = new Discord.RichEmbed();
                     const titles = video.title;
-                    embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                    embed.setTitle("Queued:");
                     embed.setDescription( "["+ titles + "](" + video.url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
@@ -201,7 +201,7 @@ module.exports = {
                 //no results
                 catch(err){
                     const embed = new Discord.RichEmbed();
-                    embed.title("Queued:");
+                    embed.setTitle("Queued:");
                     embed.setDescription( " Nothing, Your song is invalid or private!!");
                     message.channel.send({embed});
                 }
