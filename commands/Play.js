@@ -60,7 +60,7 @@ module.exports = {
                 const titles = video.title;
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                embeds.setDescription(titles + " [link](" + video.url + ")");
+                embeds.setDescription(titles + " (" + video.url + ")");
 
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
