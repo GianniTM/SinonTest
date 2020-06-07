@@ -23,9 +23,33 @@ module.exports = {
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 const videoArray1 = await youtube.getPlaylist(mentionMessage);
                 console.log(videoArray1);
-                for(song of videoArray1){
-                    console.log(song);
+                message.member.voiceChannel.join().then(connection =>{
+                for(song of videoArray1) {
+                    mentionMessage = song;
+                    const title = videoArray1.title;
+                    const embed = new Discord.RichEmbed();
+                    embed.setAuthor("Added the playlist:", message.author.displayAvatarURL);
+                    embed.setDescription(title);
+
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end", function () {
+                            m.delete()
+                        })
+                    })
+                    server.queue.push(mentionMessage);
                 }
+                    const embeds = new Discord.RichEmbed();
+                    embeds.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                    embeds.setDescription(server.queue[0].title);
+
+                    message.channel.send({embeds}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete()
+                        })
+                    })
+                })
+
+                Play(connection, message);
                 return;
             }
             else{
