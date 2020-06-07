@@ -21,7 +21,7 @@ module.exports = {
                 var video = await youtube.getVideo(mentionMessage);
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
-                const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(message.channel.send("Playlist is private!"));
                 message.member.voiceChannel.join().then(connection =>{
                 for(song of videoArray1) {
                     mentionMessage = song;
@@ -75,7 +75,7 @@ module.exports = {
                 var video = await youtube.getVideo(mentionMessage);
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
-                const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(message.channel.send("Playlist is private!"));
                     for(song of videoArray1) {
                         mentionMessage = song;
                         server.queue.push(mentionMessage);
