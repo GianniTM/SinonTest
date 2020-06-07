@@ -31,7 +31,7 @@ module.exports = {
                     const title = videoArray1.length;
                     embeds.setAuthor("Playlist:", message.author.displayAvatarURL);
                     embeds.setDescription( "Added " + title + " songs!");
-                    message.channel.send({embed}).then(m => {
+                    message.channel.send({embeds}).then(m => {
                         server.dispatcher.on("end",function () {
                             m.delete();
                         })
