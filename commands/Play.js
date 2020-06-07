@@ -38,10 +38,9 @@ module.exports = {
                         })
                     })
                     const titles = server.queue[0].title;
-                    const result = titles.link(server.queue[0].url)
                     const embeds = new Discord.RichEmbed();
                     embeds.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                    embeds.setDescription(result);
+                    embeds.setDescription(titles + " [link](" + server.queue[0].url + ")");
 
                     message.channel.send({embeds}).then(m => {
                         server.dispatcher.on("end",function () {
@@ -59,10 +58,9 @@ module.exports = {
             message.member.voiceChannel.join().then(connection =>{
                 mentionMessage = video;
                 const titles = video.title;
-                const result = titles.link(video.url)
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                embed.setDescription(result);
+                embeds.setDescription(titles + " [link](" + video.url + ")");
 
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
@@ -87,9 +85,8 @@ module.exports = {
                 const title = video.title;
                 const embed = new Discord.RichEmbed();
                 const titles = video.title;
-                const result = titles.link(video.url)
                 embed.setAuthor("Queued:", message.author.displayAvatarURL);
-                embed.setDescription(result);
+                embeds.setDescription(titles + " [link](" + video.url + ")");
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
                         m.delete()
@@ -108,9 +105,8 @@ module.exports = {
                 if (server.queue[0]){
                     const embed = new Discord.RichEmbed();
                     const titles = server.queue[0].title;
-                    const result = titles.link(server.queue[0].url);
                     embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                    embed.setDescription(result)
+                    embeds.setDescription(titles + " [link](" + server.queue[0].url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
                             m.delete();
