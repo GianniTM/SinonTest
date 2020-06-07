@@ -42,8 +42,8 @@ module.exports = {
             // invalid yt link
         catch(err){
                 const embed = new Discord.RichEmbed();
-                embed.setTitle("playing:");
-                embed.setDescription( " Nothing, Your song is invalid or private!!");
+                embed.setTitle("Now Playing");
+                embed.setDescription( "Nothing, Your song is invalid or private!!");
                 message.channel.send({embed});
             }
         }
