@@ -14,6 +14,7 @@ module.exports = {
     name: 'stop',
     description: 'stop!',
     execute(message, args) {
+        var server = servers[message.guild.id];
         const channel = message.member.voiceChannel;
         if(channel){
             if(message.guild.voiceConnection.channel === message.member.voiceChannel){
@@ -27,7 +28,7 @@ module.exports = {
                 }
             }
             else{
-                message.channel.send('You trying to troll your friend by emptying the queue? You are not in the same VoiceChannel so sorry but you can not do this!');
+                message.channel.send('You dumb? You are not in the same VoiceChannel!!!');
             }
         }
         else{

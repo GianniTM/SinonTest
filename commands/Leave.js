@@ -24,7 +24,7 @@ module.exports = {
                     message.react('👋');
                 }
                 else{
-                    message.channel.send('You trying to troll your friend by making the bot leave? You are not in the same VoiceChannel so sorry but you can not do this!');
+                    message.channel.send('You dumb? You are not in the same VoiceChannel!!!');
                 }
 
             }
