@@ -24,13 +24,6 @@ module.exports = {
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Playlist:", message.author.displayAvatarURL);
                 embed.setDescription( "Added 0 songs! Your Playlist is private!");
-                try{
-                    const videoArray1 = await youtube.getPlaylist(mentionMessage)
-                }
-                catch(error){
-                    message.channel.send({embed});
-                    return;
-                }
                 const videoArray1 = await youtube.getPlaylist(mentionMessage)
                 message.member.voiceChannel.join().then(connection =>{
                 for(song of videoArray1) {
@@ -87,13 +80,6 @@ module.exports = {
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Playlist:", message.author.displayAvatarURL);
                 embed.setDescription( "Added 0 songs! Your Playlist is private!");
-                try{
-                    const videoArray1 = await youtube.getPlaylist(mentionMessage)
-                }
-                catch(error){
-                    message.channel.send({embed});
-                    return;
-                }
                 const videoArray1 = await youtube.getPlaylist(mentionMessage);
                     for(song of videoArray1) {
                         mentionMessage = song;
