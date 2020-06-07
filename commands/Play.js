@@ -22,7 +22,10 @@ module.exports = {
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 const videoArray1 = await youtube.getPlaylist(mentionMessage);
-                console.log(videoArray1.length);
+                console.log(videoArray1);
+                for(song of videoArray1){
+                    console.log(song);
+                }
                 return;
             }
             else{
