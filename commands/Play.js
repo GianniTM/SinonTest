@@ -26,7 +26,9 @@ module.exports = {
                 message.member.voiceChannel.join().then(connection =>{
                 for(song of videoArray1) {
                     mentionMessage = song;
-                    const title = videoArray1.title;
+                    server.queue.push(mentionMessage);
+                }
+                    const title = videoArray1.length;
                     const embed = new Discord.RichEmbed();
                     embed.setAuthor("Added the playlist:", message.author.displayAvatarURL);
                     embed.setDescription(title);
@@ -36,8 +38,6 @@ module.exports = {
                             m.delete()
                         })
                     })
-                    server.queue.push(mentionMessage);
-                }
                     const embeds = new Discord.RichEmbed();
                     embeds.setAuthor("Now Playing:", message.author.displayAvatarURL);
                     embeds.setDescription(server.queue[0].title);
@@ -47,9 +47,8 @@ module.exports = {
                             m.delete()
                         })
                     })
+                    Play(connection, message);
                 })
-
-                Play(connection, message);
                 return;
             }
             else{
