@@ -16,11 +16,17 @@ module.exports = {
     execute(message, args) {
         if (message.member.voiceChannel) {
             if(message.guild.voiceConnection) {
-                var server = servers[message.guild.id];
-                server.queue = [];
-                server.dispatcher.end();
-                message.member.voiceChannel.leave();
-                message.react('👋');
+                if(message.guild.voiceConnection.channel === message.member.voiceChannel){
+                    var server = servers[message.guild.id];
+                    server.queue = [];
+                    server.dispatcher.end();
+                    message.member.voiceChannel.leave();
+                    message.react('👋');
+                }
+                else{
+                    message.channel.send('You trying to troll your friend by making the bot leave? You are not in the same VoiceChannel so sorry but you can not do this!');
+                }
+
             }
             else{
                 message.channel.send("I'm not in a VoiceChannel!")

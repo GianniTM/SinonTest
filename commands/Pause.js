@@ -15,12 +15,18 @@ module.exports = {
     description: 'pause!',
     execute(message, args) {
         var server = servers[message.guild.id];
-        if (server.dispatcher.paused){
-            message.channel.send('dispatched is already paused')
+
+        if(message.guild.voiceConnection.channel === message.member.voiceChannel){
+            if (server.dispatcher.paused){
+                message.channel.send('dispatched is already paused')
+            }
+            else{
+                server.dispatcher.pause();
+                message.react("⏸");
+            }
         }
         else{
-            server.dispatcher.pause();
-            message.react("⏸");
+            message.channel.send('You trying to troll your friend by randomly pausing there song? You are not in the same VoiceChannel so sorry but you can not do this!');
         }
     },
 };
