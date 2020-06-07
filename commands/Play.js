@@ -21,40 +21,41 @@ module.exports = {
                 var video = await youtube.getVideo(mentionMessage);
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
-                const embed = new Discord.RichEmbed();
-                embed.setAuthor("Playlist:", message.author.displayAvatarURL);
-                embed.setDescription( "Added 0 songs! Your Playlist is private!");
                 try{
                     const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                    message.member.voiceChannel.join().then(connection =>{
+                        for(song of videoArray1) {
+                            mentionMessage = song;
+                            server.queue.push(mentionMessage);
+                        }
+                        const title = videoArray1.length;
+                        const embed = new Discord.RichEmbed();
+                        embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                        embed.setDescription( "Added " + title + " songs!");
+                        message.channel.send({embed}).then(m => {
+                            server.dispatcher.on("end",function () {
+                                m.delete();
+                            })
+                        })
+                        const titles = server.queue[0].title;
+                        embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                        embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
+                        message.channel.send({embed}).then(m => {
+                            server.dispatcher.on("end",function () {
+                                m.delete();
+                            })
+                        })
+                        Play(connection, message);
+                    })
                 }
                 catch(error){
+                    const embed = new Discord.RichEmbed();
+                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                    embed.setDescription( "Added 0 songs! Your Playlist is private!");
                     message.channel.send({embed});
                     return;
                 }
-                const videoArray1 = await youtube.getPlaylist(mentionMessage);
-                message.member.voiceChannel.join().then(connection =>{
-                for(song of videoArray1) {
-                    mentionMessage = song;
-                    server.queue.push(mentionMessage);
-                }
-                    const title = videoArray1.length;
-                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
-                    embed.setDescription( "Added " + title + " songs!");
-                    message.channel.send({embed}).then(m => {
-                        server.dispatcher.on("end",function () {
-                            m.delete();
-                        })
-                    })
-                    const titles = server.queue[0].title;
-                    embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                    embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
-                    message.channel.send({embed}).then(m => {
-                        server.dispatcher.on("end",function () {
-                            m.delete();
-                        })
-                    })
-                    Play(connection, message);
-                })
+
                 return;
             }
             else{
@@ -84,31 +85,40 @@ module.exports = {
                 var video = await youtube.getVideo(mentionMessage);
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
-                const embed = new Discord.RichEmbed();
-                embed.setAuthor("Playlist:", message.author.displayAvatarURL);
-                embed.setDescription( "Added 0 songs! Your Playlist is private!");
-                const videoArray1 = await youtube.getPlaylist(mentionMessage);
-                    for(song of videoArray1) {
-                        mentionMessage = song;
-                        server.queue.push(mentionMessage);
-                    }
+                try{
+                    const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                    message.member.voiceChannel.join().then(connection =>{
+                        for(song of videoArray1) {
+                            mentionMessage = song;
+                            server.queue.push(mentionMessage);
+                        }
+                        const title = videoArray1.length;
+                        const embed = new Discord.RichEmbed();
+                        embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                        embed.setDescription( "Added " + title + " songs!");
+                        message.channel.send({embed}).then(m => {
+                            server.dispatcher.on("end",function () {
+                                m.delete();
+                            })
+                        })
+                        const titles = server.queue[0].title;
+                        embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                        embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
+                        message.channel.send({embed}).then(m => {
+                            server.dispatcher.on("end",function () {
+                                m.delete();
+                            })
+                        })
+                    })
+                }
+            catch(error){
+                    const embed = new Discord.RichEmbed();
+                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                    embed.setDescription( "Added 0 songs! Your Playlist is private!");
+                    message.channel.send({embed});
+                    return;
+                }
 
-                    const title = videoArray1.length;
-                embed.setAuthor("Playlist:", message.author.displayAvatarURL);
-                embed.setDescription( "Added " + title + " songs!");
-                    message.channel.send({embed}).then(m => {
-                        server.dispatcher.on("end",function () {
-                            m.delete();
-                        })
-                    })
-                    const titles = server.queue[0].title;
-                    embed.setAuthor("Queued:", message.author.displayAvatarURL);
-                    embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
-                    message.channel.send({embed}).then(m => {
-                        server.dispatcher.on("end",function () {
-                            m.delete();
-                        })
-                    })
                 return;}
             else{
                 var video = await youtube.searchVideos(mentionMessage);
