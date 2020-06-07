@@ -74,6 +74,32 @@ module.exports = {
             if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
                 var video = await youtube.getVideo(mentionMessage);
             }
+            else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
+                const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                message.member.voiceChannel.join().then(connection =>{
+                    for(song of videoArray1) {
+                        mentionMessage = song;
+                        server.queue.push(mentionMessage);
+                    }
+                    const embed = new Discord.RichEmbed();
+                    const title = videoArray1.length;
+                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                    embed.setDescription( "Added " + title + " songs!");
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete();
+                        })
+                    })
+                    const titles = server.queue[0].title;
+                    embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                    embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete();
+                        })
+                    })
+                })
+                return;}
             else{
                 var video = await youtube.searchVideos(mentionMessage);
             }
