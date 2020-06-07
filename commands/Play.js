@@ -37,14 +37,13 @@ module.exports = {
                             m.delete()
                         })
                     })
-                    const titles = server.queue[0].title;
                     const embeds = new Discord.RichEmbed();
+                    const titles = server.queue[0].title;
                     embeds.setAuthor("Now Playing:", message.author.displayAvatarURL);
                     embeds.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
-
                     message.channel.send({embeds}).then(m => {
                         server.dispatcher.on("end",function () {
-                            m.delete()
+                            m.delete();
                         })
                     })
                     Play(connection, message);
