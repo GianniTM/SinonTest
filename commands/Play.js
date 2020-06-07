@@ -16,6 +16,25 @@ module.exports = {
     name: 'p',
     description: 'p!',
     execute(message, args) {
+        async function testAll(mentionMessage) {
+            const video = await youtube.searchVideos(mentionMessage)
+            message.member.voiceChannel.join().then(connection =>{
+                mentionMessage = video;
+                const title = video.title;
+                const embed = new Discord.RichEmbed();
+                embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                embed.setTitle(title);
+
+                message.channel.send({embed}).then(m => {
+                    server.dispatcher.on("end",function () {
+                        m.delete()
+                    })
+                })
+                server.queue.push(mentionMessage);
+                Play(connection, message);
+
+            })
+        }
         function Play(connection, message)
         {
             var server = servers[message.guild.id];
@@ -54,25 +73,7 @@ module.exports = {
                     var server = servers[message.guild.id];
                     mentionMessage = message.content.slice(3);
                     testAll(mentionMessage);
-                    async function testAll(mentionMessage) {
-                        const video = await youtube.searchVideos(mentionMessage)
-                        message.member.voiceChannel.join().then(connection =>{
-                            mentionMessage = video;
-                            const title = video.title;
-                            const embed = new Discord.RichEmbed();
-                            embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                            embed.setTitle(title);
 
-                            message.channel.send({embed}).then(m => {
-                                server.dispatcher.on("end",function () {
-                                    m.delete()
-                                })
-                            })
-                            server.queue.push(mentionMessage);
-                            Play(connection, message);
-
-                        })
-                    }
 
 
 
