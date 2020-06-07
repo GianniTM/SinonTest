@@ -16,10 +16,38 @@ module.exports = {
     name: 'p',
     description: 'p!',
     execute(message, args) {
+        // Play first time they use /p
         async function PlayAll(mentionMessage) {
+            // using a yt link
             if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
+                try{
                 var video = await youtube.getVideo(mentionMessage);
+                message.member.voiceChannel.join().then(connection =>{
+                    mentionMessage = video;
+                    const titles = video.title;
+                    const embed = new Discord.RichEmbed();
+                    embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                    embed.setDescription( "["+ titles + "](" + video.url + ")");
+
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete()
+                        })
+                    })
+                    server.queue.push(mentionMessage);
+                    Play(connection, message);
+
+                })
             }
+            // invalid yt link
+        catch(err){
+                const embed = new Discord.RichEmbed();
+                embed.title("playing:");
+                embed.setDescription( " Nothing, Your song is invalid or private!!");
+                message.channel.send({embed});
+            }
+        }
+            // using yt playlist link
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 try{
                     const videoArray1 = await youtube.getPlaylist(mentionMessage);
@@ -48,6 +76,7 @@ module.exports = {
                         Play(connection, message);
                     })
                 }
+                // invalid playlist
                 catch(error){
                     const embed = new Discord.RichEmbed();
                     embed.setAuthor("Playlist:", message.author.displayAvatarURL);
@@ -59,10 +88,10 @@ module.exports = {
                 return;
             }
             else{
+                try{
+                // yt search
                 var video = await youtube.searchVideos(mentionMessage);
-            }
-
-            message.member.voiceChannel.join().then(connection =>{
+                message.member.voiceChannel.join().then(connection =>{
                 mentionMessage = video;
                 const titles = video.title;
                 const embed = new Discord.RichEmbed();
@@ -78,12 +107,45 @@ module.exports = {
                 Play(connection, message);
 
             })
-        }
-        async function QueueAll(mentionMessage) {
-
-            if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
-                var video = await youtube.getVideo(mentionMessage);
             }
+            // no results
+        catch(err){
+                const embed = new Discord.RichEmbed();
+                embed.title("Queued:");
+                embed.setDescription( "Nothing, Your song is invalid or private!!");
+                message.channel.send({embed});
+            }
+        }}
+        //Queue songs
+        async function QueueAll(mentionMessage) {
+            //yt link
+            if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
+
+                try{
+                    var video = await youtube.getVideo(mentionMessage);
+                    mentionMessage = video;
+                    const title = video.title;
+                    const embed = new Discord.RichEmbed();
+                    const titles = video.title;
+                    embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                    embed.setDescription( "["+ titles + "](" + video.url + ")");
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete()
+                        })
+                    })
+                    server.queue.push(mentionMessage);
+                }
+                //invalid link
+                catch(err){
+                    const embed = new Discord.RichEmbed();
+                    embed.title("Queued:");
+                    embed.setDescription( " Nothing, Your song is invalid or private!!");
+                    message.channel.send({embed});
+                }
+
+            }
+            //yt playlist
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 try{
                     const videoArray1 = await youtube.getPlaylist(mentionMessage);
@@ -111,6 +173,7 @@ module.exports = {
                         })
                     })
                 }
+                //invalid link
             catch(error){
                     const embed = new Discord.RichEmbed();
                     embed.setAuthor("Playlist:", message.author.displayAvatarURL);
@@ -118,25 +181,38 @@ module.exports = {
                     message.channel.send({embed});
                     return;
                 }
-
                 return;}
             else{
-                var video = await youtube.searchVideos(mentionMessage);
-            }
-                mentionMessage = video;
-                const title = video.title;
-                const embed = new Discord.RichEmbed();
-                const titles = video.title;
-                embed.setAuthor("Queued:", message.author.displayAvatarURL);
-                embed.setDescription( "["+ titles + "](" + video.url + ")");
-                message.channel.send({embed}).then(m => {
-                    server.dispatcher.on("end",function () {
-                        m.delete()
+                try{
+                    //yt search
+                    var video = await youtube.searchVideos(mentionMessage);
+                    mentionMessage = video;
+                    const title = video.title;
+                    const embed = new Discord.RichEmbed();
+                    const titles = video.title;
+                    embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                    embed.setDescription( "["+ titles + "](" + video.url + ")");
+                    message.channel.send({embed}).then(m => {
+                        server.dispatcher.on("end",function () {
+                            m.delete()
+                        })
                     })
-                })
-                server.queue.push(mentionMessage);
+                    server.queue.push(mentionMessage);
+                }
+                //no results
+                catch(err){
+                    const embed = new Discord.RichEmbed();
+                    embed.title("Queued:");
+                    embed.setDescription( " Nothing, Your song is invalid or private!!");
+                    message.channel.send({embed});
+                }
+
+            }
+
+
 
         }
+        //Play a song
         function Play(connection, message)
         {
             var server = servers[message.guild.id];
