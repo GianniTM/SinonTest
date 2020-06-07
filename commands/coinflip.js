@@ -19,7 +19,7 @@ module.exports = {
             embed.setTitle('Coin Toss')
             embed.setDescription("The coin landed on Heads!")
             var randomImg = "Images/heads.png";
-            embed.setThumbnail({randomImg);
+            embed.setThumbnail(randomImg);
             message.channel.send({embed});
         }
         else{
