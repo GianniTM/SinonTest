@@ -18,16 +18,16 @@ module.exports = {
             const embed = new Discord.RichEmbed();
             embed.setTitle('Coin Toss')
             embed.setDescription("The coin landed on Heads!")
-            var randomImg = "heads.png";
-            embed.setThumbnail({files: [randomImg]});
+            var randomImg = "Images/heads.png";
+            embed.setThumbnail({randomImg);
             message.channel.send({embed});
         }
         else{
             const embed = new Discord.RichEmbed();
             embed.setTitle('Coin Toss')
             embed.setDescription("The coin landed on Tails!")
-            var randomImg = "tails.png";
-            embed.setThumbnail({files: [randomImg]});
+            var randomImg = "Images/tails.png";
+            embed.setThumbnail(randomImg);
             message.channel.send({embed});
         }
 
