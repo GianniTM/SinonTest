@@ -27,7 +27,7 @@ module.exports = {
                     mentionMessage = song;
                     server.queue.push(mentionMessage);
                 }
-                    var embed = new Discord.RichEmbed();
+                    const embed = new Discord.RichEmbed();
                     const title = videoArray1.length;
                     embed.setAuthor("Playlist:", message.author.displayAvatarURL);
                     embed.setDescription( "Added " + title + " songs!");
