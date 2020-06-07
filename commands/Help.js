@@ -38,7 +38,7 @@ module.exports = {
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Music Commands**");
             embed.addField(
-                '**Play a song**', '`=p [Song Name | Song Link]`'
+                '**Play a song**', '`=p [Song Name | Song Link | Playlist Link]`'
             );
             embed.addField(
                 '**Pause a song**','`=pause`'
