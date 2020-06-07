@@ -60,7 +60,7 @@ module.exports = {
                 const titles = video.title;
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                embeds.setDescription(titles + " (" + video.url + ")");
+                embed.setDescription(titles + " [link](" + video.url + ")");
 
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
@@ -86,7 +86,7 @@ module.exports = {
                 const embed = new Discord.RichEmbed();
                 const titles = video.title;
                 embed.setAuthor("Queued:", message.author.displayAvatarURL);
-                embeds.setDescription(titles + " [link](" + video.url + ")");
+                embed.setDescription(titles + " [link](" + video.url + ")");
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
                         m.delete()
@@ -106,7 +106,7 @@ module.exports = {
                     const embed = new Discord.RichEmbed();
                     const titles = server.queue[0].title;
                     embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                    embeds.setDescription(titles + " [link](" + server.queue[0].url + ")");
+                    embed.setDescription(titles + " [link](" + server.queue[0].url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
                             m.delete();
