@@ -16,9 +16,14 @@ module.exports = {
     name: 'p',
     description: 'p!',
     execute(message, args) {
-        async function testAll(mentionMessage) {
+        async function PlayAll(mentionMessage) {
             if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
                 var video = await youtube.getVideo(mentionMessage);
+            }
+            else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
+                const videoArray1 = await youtube.getPlaylist(mentionMessage);
+                console.log(videoArray1);
+                return;
             }
             else{
                 var video = await youtube.searchVideos(mentionMessage);
@@ -38,6 +43,29 @@ module.exports = {
                 })
                 server.queue.push(mentionMessage);
                 Play(connection, message);
+
+            })
+        }
+        async function QueueAll(mentionMessage) {
+
+            if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
+                var video = await youtube.getVideo(mentionMessage);
+            }
+            else{
+                var video = await youtube.searchVideos(mentionMessage);
+            }
+            message.member.voiceChannel.join().then(connection =>{
+                mentionMessage = video;
+                const title = video.title;
+                const embed = new Discord.RichEmbed();
+                embed.setAuthor("Queued:", message.author.displayAvatarURL);
+                embed.setDescription(title);
+                message.channel.send({embed}).then(m => {
+                    server.dispatcher.on("end",function () {
+                        m.delete()
+                    })
+                })
+                server.queue.push(mentionMessage);
 
             })
         }
@@ -78,7 +106,7 @@ module.exports = {
                     }
                     var server = servers[message.guild.id];
                     mentionMessage = message.content.slice(3);
-                    testAll(mentionMessage);
+                    PlayAll(mentionMessage);
 
 
 
@@ -101,32 +129,10 @@ module.exports = {
                     var server = servers[message.guild.id];
                     var mentionMessage = message.content.slice(3);
                     if (!server.queue[0]) {
-                        testAll(mentionMessage);
+                        PlayAll(mentionMessage);
                     } else {
                         QueueAll(mentionMessage)
-                        async function QueueAll(mentionMessage) {
 
-                            if (mentionMessage.startsWith("https://www.youtube.com/watch?")){
-                                var video = await youtube.getVideo(mentionMessage);
-                            }
-                            else{
-                                var video = await youtube.searchVideos(mentionMessage);
-                            }
-                            message.member.voiceChannel.join().then(connection =>{
-                                mentionMessage = video;
-                                const title = video.title;
-                                const embed = new Discord.RichEmbed();
-                                embed.setAuthor("Queued:", message.author.displayAvatarURL);
-                                embed.setDescription(title);
-                                message.channel.send({embed}).then(m => {
-                                    server.dispatcher.on("end",function () {
-                                        m.delete()
-                                    })
-                                })
-                                server.queue.push(mentionMessage);
-
-                            })
-                        }
                     }
                 }
 
