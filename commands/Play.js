@@ -76,7 +76,6 @@ module.exports = {
             }
             else if(mentionMessage.startsWith("https://www.youtube.com/playlist?")){
                 const videoArray1 = await youtube.getPlaylist(mentionMessage);
-                message.member.voiceChannel.join().then(connection =>{
                     for(song of videoArray1) {
                         mentionMessage = song;
                         server.queue.push(mentionMessage);
@@ -98,12 +97,10 @@ module.exports = {
                             m.delete();
                         })
                     })
-                })
                 return;}
             else{
                 var video = await youtube.searchVideos(mentionMessage);
             }
-            message.member.voiceChannel.join().then(connection =>{
                 mentionMessage = video;
                 const title = video.title;
                 const embed = new Discord.RichEmbed();
@@ -117,7 +114,6 @@ module.exports = {
                 })
                 server.queue.push(mentionMessage);
 
-            })
         }
         function Play(connection, message)
         {
@@ -175,15 +171,20 @@ module.exports = {
 
                         servers[message.guild.id] = {queue: []}
                     }
+                    if(message.guild.voiceConnection.channel === message.member.voiceChannel){
+                        var server = servers[message.guild.id];
+                        var mentionMessage = message.content.slice(3);
+                        if (!server.queue[0]) {
+                            PlayAll(mentionMessage);
+                        } else {
+                            QueueAll(mentionMessage)
 
-                    var server = servers[message.guild.id];
-                    var mentionMessage = message.content.slice(3);
-                    if (!server.queue[0]) {
-                        PlayAll(mentionMessage);
-                    } else {
-                        QueueAll(mentionMessage)
-
+                        }
                     }
+                    else{
+                        message.channel.send("It seems that you are not in the same VoiceChannel as the bot. ")
+                    }
+
                 }
 
 
