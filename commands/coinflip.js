@@ -19,6 +19,7 @@ module.exports = {
             embed.setTitle('Coin Toss')
             embed.setDescription("The coin landed on Heads!")
             embed.setThumbnail("https://gianni.sinners.be/DiscordBotImg/heads.png");
+            embed.setColor("#DCDCDC");
             message.channel.send({embed});
         }
         else{
@@ -26,6 +27,7 @@ module.exports = {
             embed.setTitle('Coin Toss')
             embed.setDescription("The coin landed on Tails!")
             embed.setThumbnail("https://gianni.sinners.be/DiscordBotImg/tails.png");
+            embed.setColor("#DCDCDC")
             message.channel.send({embed});
         }
 
