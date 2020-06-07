@@ -16,7 +16,10 @@ module.exports = {
     execute(message, args) {
         if (message.member.voiceChannel) {
             if(message.guild.voiceConnection) {
-                message.member.voiceChannel.leave()
+                var server = servers[message.guild.id];
+                server.queue = [];
+                server.dispatcher.end();
+                message.member.voiceChannel.leave();
                 message.react('👋');
             }
             else{

@@ -27,21 +27,11 @@ module.exports = {
                     mentionMessage = song;
                     server.queue.push(mentionMessage);
                 }
-                    const title = videoArray1.length;
                     const embed = new Discord.RichEmbed();
-                    embed.setAuthor("Added the playlist:", message.author.displayAvatarURL);
-                    embed.setDescription(title);
-
-                    message.channel.send({embed}).then(m => {
-                        server.dispatcher.on("end", function () {
-                            m.delete()
-                        })
-                    })
-                    const embeds = new Discord.RichEmbed();
                     const titles = server.queue[0].title;
-                    embeds.setAuthor("Now Playing:", message.author.displayAvatarURL);
-                    embeds.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
-                    message.channel.send({embeds}).then(m => {
+                    embed.setAuthor("Now Playing:", message.author.displayAvatarURL);
+                    embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
+                    message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
                             m.delete();
                         })
