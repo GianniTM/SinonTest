@@ -10,7 +10,8 @@ var opts = {
     maxResults: 10,
     key: process.env.YT_TOKEN
 };
-
+const YouTube = require("discord-youtube-api");
+const youtube = new YouTube(process.env.YT_TOKEN);
 module.exports = {
     name: 'queue',
     description: 'queue!',
@@ -30,7 +31,7 @@ module.exports = {
             const embed = new Discord.RichEmbed();
             embed.setAuthor("Queue:", message.author.displayAvatarURL);
             for(song of server.queue){
-                embed.addField(song.title, song.channelTitle)
+                embed.addField(song.title + " Duration: " + song.duration.hours + 'h ' + song.duration.minutes + 'm ' + song.duration.seconds + 's')
             }
             message.channel.send({embed});
         }
