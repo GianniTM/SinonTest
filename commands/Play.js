@@ -79,7 +79,7 @@ module.exports = {
                 // invalid playlist
                 catch(error){
                     const embed = new Discord.RichEmbed();
-                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                    embed.setTitle("Playlist");
                     embed.setDescription( "Added 0 songs! Your Playlist is private!");
                     message.channel.send({embed});
                     return;
@@ -111,7 +111,7 @@ module.exports = {
             // no results
         catch(err){
                 const embed = new Discord.RichEmbed();
-                embed.setTitle("Queued:");
+                embed.setTitle("Now Playing");
                 embed.setDescription( "Nothing, Your song is invalid or private!!");
                 message.channel.send({embed});
             }
@@ -139,8 +139,8 @@ module.exports = {
                 //invalid link
                 catch(err){
                     const embed = new Discord.RichEmbed();
-                    embed.title("Queued:");
-                    embed.setDescription( " Nothing, Your song is invalid or private!!");
+                    embed.setTitle("Queued");
+                    embed.setDescription( "Nothing, Your song is invalid or private!!");
                     message.channel.send({embed});
                 }
 
@@ -175,7 +175,7 @@ module.exports = {
                 //invalid link
             catch(error){
                     const embed = new Discord.RichEmbed();
-                    embed.setAuthor("Playlist:", message.author.displayAvatarURL);
+                    embed.setTitle("Playlist");
                     embed.setDescription( "Added 0 songs! Your Playlist is private!");
                     message.channel.send({embed});
                     return;
@@ -201,8 +201,8 @@ module.exports = {
                 //no results
                 catch(err){
                     const embed = new Discord.RichEmbed();
-                    embed.setTitle("Queued:");
-                    embed.setDescription( " Nothing, Your song is invalid or private!!");
+                    embed.setTitle("Queued");
+                    embed.setDescription( "Nothing, Your song is invalid or private!!");
                     message.channel.send({embed});
                 }
             }
