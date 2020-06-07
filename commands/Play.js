@@ -24,7 +24,7 @@ module.exports = {
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Playlist:", message.author.displayAvatarURL);
                 embed.setDescription( "Added 0 songs! Your Playlist is private!");
-                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(err)
+                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(onerror)
                 {
                     message.channel.send({embed})
                 };
@@ -83,7 +83,7 @@ module.exports = {
                 const embed = new Discord.RichEmbed();
                 embed.setAuthor("Playlist:", message.author.displayAvatarURL);
                 embed.setDescription( "Added 0 songs! Your Playlist is private!");
-                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(err)
+                const videoArray1 = await youtube.getPlaylist(mentionMessage).catch(onerror)
                 {
                     message.channel.send({embed})
                 };
