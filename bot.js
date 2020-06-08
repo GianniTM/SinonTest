@@ -29,9 +29,7 @@ client.on('ready', () => {
      client.user.setStatus('available')
      client.user.setPresence({
         game: {
-            name: 'With Asada',
-            type:'Streaming',
-            url: "https://www.twitch.tv/xealiusrl"
+            name: 'Testing commands'
         }
     });
 });
