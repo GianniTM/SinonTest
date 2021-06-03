@@ -19,23 +19,13 @@ module.exports = {
         if (mention == null){
             mention = message.author
         }
-        const member = message.guild.members.cache.get(`${mention.id}`);
             embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.addField(
                 {
                     name:'**Tag**',
                     value:`${mention.author.tag}`
-                },
-                {
-                    name:'**Nickname**',
-                    value: member.nickname || 'None'
-                },
-                {
-                    name:'**Joined Server**',
-                    value: new Date(member.joinedTimestamp)
                 }
-                
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
