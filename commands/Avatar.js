@@ -22,10 +22,9 @@ module.exports = {
             embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.addField(
-                {
-                    name:'**Tag**',
-                    value:`${mention.tag}`
-                }
+                
+                    '**Tag**',`${mention.tag}`
+                
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
