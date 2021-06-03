@@ -16,21 +16,29 @@ module.exports = {
     execute(message, args) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
-        let userID;
-        userID = mention!=undefined ? mention.id : args[1];
-         //You should also check if the id supplied via args[1] is a valid id.
         if (mention == null){
-            embed.setTitle("Your Avatar");
-            embed.setThumbnail(message.author.displayAvatarURL);
+            mention = message.author;
+        }
+        const member = message.guild.member.cache.get(mention.id);
+            embed.setTitle(`Userinfo ${mention.username}`);
+            embed.setThumbnail(mention.displayAvatarURL);
+            embed.addField(
+                {
+                    name:'**Tag**',
+                    value:`${mention.author.tag}`
+                },
+                {
+                    name:'**Nickname**',
+                    value: member.nickname || 'None'
+                },
+                {
+                    name:'**Joined Server**',
+                    value: new Date(member.joinedTimestamp)
+                }
+                
+            );
             embed.setColor("37bceb");
             message.channel.send({embed});
-        }
-        else{
-            embed.setTitle(`${mention.username}'s avatar!`);
-            embed.setThumbnail(mention.displayAvatarURL);
-            embed.setColor("f7d456");
-            message.channel.send({embed});
-        }
   /*  execute(message) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
