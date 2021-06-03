@@ -13,7 +13,7 @@ var opts = {
 module.exports = {
     name: 'avatar',
     description: 'avatar',
-    execute(message, args) {
+    execute(message) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         console.log(mention)
