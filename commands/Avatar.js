@@ -24,7 +24,7 @@ module.exports = {
             embed.addField(
                 {
                     name:'**Tag**',
-                    value:`${mention.author.tag}`
+                    value:`${mention.tag}`
                 }
             );
             embed.setColor("37bceb");
