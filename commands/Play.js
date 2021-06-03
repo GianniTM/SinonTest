@@ -217,7 +217,7 @@ module.exports = {
         function Play(connection, message)
         {
             var server = servers[message.guild.id];
-            server.dispatcher = connection.playStream("https://www.youtube.com/watch?v=G59jutYwxyc");
+            server.dispatcher = connection.playStream(YTDL(server.queue[0].url, {filter: "audioonly"}));
             server.dispatcher.on("end",function () {
                 server.queue.shift();
                 if (server.queue[0]){
