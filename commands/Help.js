@@ -34,7 +34,7 @@ module.exports = {
             embed.addField(
                 '**NL Version of Rock Paper Scissors**','`=rps [Steen, Papier, Schaar]`'
             );
-            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            embed.setFooter('Created By Xealius','https://cdn.discordapp.com/avatars/271720534767697930/a_f92a01f114abaebf67cea9c6ec704484.gif')
             message.channel.send({embed});
         }
         else if(messages == "music"){
@@ -61,7 +61,7 @@ module.exports = {
             embed.addField(
                 '**Leaves the voicechannel**','`=leave`'
             );
-            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            embed.setFooter('Created By Xealius','https://cdn.discordapp.com/avatars/271720534767697930/a_f92a01f114abaebf67cea9c6ec704484.gif')
             message.channel.send({embed});
         }
         else if(messages == "server"){
@@ -73,7 +73,7 @@ module.exports = {
             embed.addField(
                 '**Send private msg to a user**','`=send [Mentioned user] [Message]`'
             );
-            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            embed.setFooter('Created By Xealius','https://cdn.discordapp.com/avatars/271720534767697930/a_f92a01f114abaebf67cea9c6ec704484.gif')
             message.channel.send({embed});
         }
         else if(messages == "main"){
@@ -85,7 +85,7 @@ module.exports = {
             embed.addField(
                 '**Get main discord server**','`=discord`'
             );
-            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            embed.setFooter('Created By Xealius','https://cdn.discordapp.com/avatars/271720534767697930/a_f92a01f114abaebf67cea9c6ec704484.gif')
             message.channel.send({embed});
         }
         else{
@@ -105,7 +105,7 @@ module.exports = {
             embed.addField(
                 '**Bug/Idea Commands**','`=help main`'
             );
-            embed.setFooter('Created By Xealius','https://images-ext-2.discordapp.net/external/koFm2tlX5t7FcS-qEPlTx5S3z-taeo1Ns2K-f2lw4H8/https/cdn.discordapp.com/avatars/271720534767697930/a_f37bd901007d84679f44c4690f9fa364.gif')
+            embed.setFooter('Created By Xealius','https://cdn.discordapp.com/avatars/271720534767697930/a_f92a01f114abaebf67cea9c6ec704484.gif')
             message.channel.send({embed});
 
         }
