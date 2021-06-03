@@ -17,13 +17,28 @@ module.exports = {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         if (mention == null){
-            embed.setTitle(`Your(${message.author.username} ${message.author.discriminator}) Details`);
+            embed.setTitle(`Userinfo ${message.author.username}`);
             embed.setThumbnail(message.author.displayAvatarURL);
+            embed.addField(
+                {
+                    name:'**Tag**',
+                    value:`${message.author.tag}`
+                },
+                {
+                    name:'**Nickname**',
+                    value: message.author.nickname || 'None'
+                },
+                {
+                    name:'**Joined Server**',
+                    value: new Date(message.joinedTimestamp)
+                }
+                
+            );
             embed.setColor("37bceb");
             message.channel.send({embed});
         }
         else{
-            embed.setTitle(`${mention.username}${mention.discriminator}'s details!`);
+            embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.setColor("f7d456");
             message.channel.send({embed});
