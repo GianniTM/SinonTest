@@ -17,13 +17,14 @@ module.exports = {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         if (mention == null){
-            embed.setTitle("Your Avatar");
+            embed.setTitle('Your(', message.author.username ,') Details');
             embed.setThumbnail(message.author.displayAvatarURL);
+            embed.addField()
             embed.setColor("37bceb");
             message.channel.send({embed});
         }
         else{
-            embed.setTitle(`${mention.username}'s avatar!`);
+            embed.setTitle(`${mention.username}'s details!`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.setColor("f7d456");
             message.channel.send({embed});
