@@ -16,7 +16,7 @@ module.exports = {
     execute(message, args) {
         const embed = new Discord.RichEmbed();
         var user = message.mentions.users.first() || message.member.user;
-        const member = guild.member.cache.get(user.id);
+        const member = message.guild.member.cache.get(user.id);
             embed.setTitle(`Userinfo ${user.username}`);
             embed.setThumbnail(user.displayAvatarURL);
             embed.addField(
