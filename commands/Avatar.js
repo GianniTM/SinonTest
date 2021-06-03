@@ -19,7 +19,7 @@ module.exports = {
         if (mention == null){
             mention = message.author
         }
-            embed.setTitle(`${mention.id}'s avatar!`);
+            embed.setTitle(`${mention.username}'s avatar!`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.setColor("f7d456");
             message.channel.send({embed});
