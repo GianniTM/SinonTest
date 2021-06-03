@@ -26,7 +26,7 @@ module.exports = {
                 '**Russian Roulette**','`=rr`'
             );
             embed.addField(
-                '**Coinflip**',Prefix,'`=cf`'
+                '**Coinflip**','`=cf`'
             );
             embed.addField(
                 "**Roll a dice**",'`=roll [max number]`'

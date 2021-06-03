@@ -17,9 +17,8 @@ module.exports = {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         if (mention == null){
-            embed.setTitle('Your(', message.author.username ,') Details');
+            embed.setTitle(`Your(${message.author.username}) Details`);
             embed.setThumbnail(message.author.displayAvatarURL);
-            embed.addField()
             embed.setColor("37bceb");
             message.channel.send({embed});
         }
