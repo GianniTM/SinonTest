@@ -15,33 +15,26 @@ module.exports = {
     description: 'avatar',
     execute(message, args) {
         const embed = new Discord.RichEmbed();
-        var mention = message.mentions.users.first();
-        if (mention == null){
-            embed.setTitle(`Userinfo ${message.author.username}`);
-            embed.setThumbnail(message.author.displayAvatarURL);
+        var user = message.mentions.users.first() || message.member.user;
+        const member = guild.member.cache.get(user.id);
+            embed.setTitle(`Userinfo ${user.username}`);
+            embed.setThumbnail(user.displayAvatarURL);
             embed.addField(
                 {
                     name:'**Tag**',
-                    value:`${message.author.tag}`
+                    value:`${user.author.tag}`
                 },
                 {
                     name:'**Nickname**',
-                    value: message.author.nickname || 'None'
+                    value: member.nickname || 'None'
                 },
                 {
                     name:'**Joined Server**',
-                    value: new Date(message.joinedTimestamp)
+                    value: new Date(member.joinedTimestamp)
                 }
                 
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
-        }
-        else{
-            embed.setTitle(`Userinfo ${mention.username}`);
-            embed.setThumbnail(mention.displayAvatarURL);
-            embed.setColor("f7d456");
-            message.channel.send({embed});
-        }
     },
 };
