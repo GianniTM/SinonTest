@@ -19,9 +19,25 @@ module.exports = {
         if (mention == null){
             mention = message.author
         }
-            embed.setTitle(`${mention.id}'s avatar!`);
+        const member = message.guild.member.cache.get(mention.id);
+            embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
-            embed.setColor("f7d456");
+            embed.addField(
+                {
+                    name:'**Tag**',
+                    value:`${mention.author.tag}`
+                },
+                {
+                    name:'**Nickname**',
+                    value: member.nickname || 'None'
+                },
+                {
+                    name:'**Joined Server**',
+                    value: new Date(member.joinedTimestamp)
+                }
+                
+            );
+            embed.setColor("37bceb");
             message.channel.send({embed});
   /*  execute(message) {
         const embed = new Discord.RichEmbed();
