@@ -36,7 +36,7 @@ module.exports = {
                 '**Joined Discord**',new Date(mention.createdTimestamp).toLocaleDateString()
             );
             embed.addField(
-                '**Role**',member.roles.find()
+                '**Highest Role**',member.highestRole
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
