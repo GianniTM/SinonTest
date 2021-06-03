@@ -36,7 +36,7 @@ module.exports = {
                 '**Joined Discord**',new Date(mention.createdTimestamp).toLocaleDateString()
             );
             embed.addField(
-                '**Role Count**',member.roles.cache.size -1
+                '**Role Count**',member.roles.cache.get(0).name
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
