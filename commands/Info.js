@@ -11,8 +11,8 @@ var opts = {
     key: process.env.YT_TOKEN
 };
 module.exports = {
-    name: 'avatar',
-    description: 'avatar',
+    name: 'info',
+    description: 'info',
     execute(message, args) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
@@ -40,33 +40,6 @@ module.exports = {
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
-  /*  execute(message) {
-        const embed = new Discord.RichEmbed();
-        var mention = message.mentions.users.first();
-        console.log(mention)
-        console.log(mention.id)
-        console.log(mention.username)
-        const member = message.guild.member.cache.get(mention.id);
-            embed.setTitle(`Userinfo ${mention.username}`);
-            embed.setThumbnail(mention.displayAvatarURL);
-            embed.addField(
-                {
-                    name:'**Tag**',
-                    value:`${mention.author.tag}`
-                },
-                {
-                    name:'**Nickname**',
-                    value: member.nickname || 'None'
-                },
-                {
-                    name:'**Joined Server**',
-                    value: new Date(member.joinedTimestamp)
-                }
-                
-            );
-            embed.setColor("37bceb");
-            message.channel.send({embed});
-            */
     },
     
 };
