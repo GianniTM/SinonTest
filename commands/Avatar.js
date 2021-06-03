@@ -15,16 +15,17 @@ module.exports = {
     description: 'avatar',
     execute(message, args) {
         const embed = new Discord.RichEmbed();
-        var user = message.mentions.users.first();
-        console.log(user)
-        console.log(user.id)
-        const member = message.guild.member.cache.get(user.id);
-            embed.setTitle(`Userinfo ${user.username}`);
-            embed.setThumbnail(user.displayAvatarURL);
+        var mention = message.mentions.users.first();
+        console.log(mention)
+        console.log(mention.id)
+        console.log(mention.username)
+        const member = message.guild.member.cache.get(mention.id);
+            embed.setTitle(`Userinfo ${mention.username}`);
+            embed.setThumbnail(mention.displayAvatarURL);
             embed.addField(
                 {
                     name:'**Tag**',
-                    value:`${user.author.tag}`
+                    value:`${mention.author.tag}`
                 },
                 {
                     name:'**Nickname**',
