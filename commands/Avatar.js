@@ -13,7 +13,25 @@ var opts = {
 module.exports = {
     name: 'avatar',
     description: 'avatar',
-    execute(message) {
+    execute(message, args) {
+        const embed = new Discord.RichEmbed();
+        var mention = message.mentions.users.first();
+        console.log(mention)
+        console.log(mention.id)
+        console.log(mention.username)
+        if (mention == null){
+            embed.setTitle("Your Avatar");
+            embed.setThumbnail(message.author.displayAvatarURL);
+            embed.setColor("37bceb");
+            message.channel.send({embed});
+        }
+        else{
+            embed.setTitle(`${mention.username}'s avatar!`);
+            embed.setThumbnail(mention.displayAvatarURL);
+            embed.setColor("f7d456");
+            message.channel.send({embed});
+        }
+  /*  execute(message) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         console.log(mention)
@@ -39,5 +57,7 @@ module.exports = {
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
+            */
     },
+    
 };
