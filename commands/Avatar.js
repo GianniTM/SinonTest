@@ -16,15 +16,21 @@ module.exports = {
     execute(message, args) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
+        
         if (mention == null){
             mention = message.author
         }
+        var member = message.guild.member(mention);
             embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.addField(
-                
-                    '**Tag**',`${mention.tag}`
-                
+                '**Tag**',`${mention.tag}`
+            );
+            embed.addField(
+                '**Nickname**', member.nickname || 'None'
+             );
+            embed.addField(
+                '**Joined Server**',new Date(member.joinedTimestamp)
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
