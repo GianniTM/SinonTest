@@ -41,6 +41,7 @@ module.exports = {
             }
             // invalid yt link
         catch(err){
+            console.log(err);
                 const embed = new Discord.RichEmbed();
                 embed.setTitle("Now Playing");
                 embed.setDescription( "Nothing, Your song is invalid or private!!");
@@ -78,6 +79,7 @@ module.exports = {
                 }
                 // invalid playlist
                 catch(error){
+                    console.log(error);
                     const embed = new Discord.RichEmbed();
                     embed.setTitle("Playlist");
                     embed.setDescription( "Added 0 songs! Your Playlist is private!");
@@ -110,6 +112,7 @@ module.exports = {
             }
             // no results
         catch(err){
+            console.log(err);
                 const embed = new Discord.RichEmbed();
                 embed.setTitle("Now Playing");
                 embed.setDescription( "Nothing, Your song is invalid or private!!");
@@ -138,6 +141,7 @@ module.exports = {
                 }
                 //invalid link
                 catch(err){
+                    console.log(err);
                     const embed = new Discord.RichEmbed();
                     embed.setTitle("Queued");
                     embed.setDescription( "Nothing, Your song is invalid or private!!");
@@ -174,6 +178,7 @@ module.exports = {
                 }
                 //invalid link
             catch(error){
+                console.log(error);
                     const embed = new Discord.RichEmbed();
                     embed.setTitle("Playlist");
                     embed.setDescription( "Added 0 songs! Your Playlist is private!");
@@ -200,6 +205,7 @@ module.exports = {
                 }
                 //no results
                 catch(err){
+                    console.log(err);
                     const embed = new Discord.RichEmbed();
                     embed.setTitle("Queued");
                     embed.setDescription( "Nothing, Your song is invalid or private!!");
