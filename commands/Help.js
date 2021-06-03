@@ -68,7 +68,7 @@ module.exports = {
             const embed = new Discord.RichEmbed();
             embed.setTitle("**Server Commands**");
             embed.addField(
-                '**Get avatar of a user**', '`=avatar [Mentioned user]`'
+                '**Get info about a user**', '`=info [Mentioned user]`'
             );
             embed.addField(
                 '**Send private msg to a user**','`=send [Mentioned user] [Message]`'
