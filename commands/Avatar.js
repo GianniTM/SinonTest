@@ -19,7 +19,7 @@ module.exports = {
         if (mention == null){
             mention = message.author
         }
-        const member = message.guild.member.cache.get(mention.id);
+        const member = message.guild.member.cache.get(`${mention.id}`);
             embed.setTitle(`Userinfo ${mention.username}`);
             embed.setThumbnail(mention.displayAvatarURL);
             embed.addField(
