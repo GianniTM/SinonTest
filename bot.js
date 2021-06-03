@@ -28,7 +28,7 @@ client.on('ready', () => {
      client.user.setStatus('available')
      client.user.setPresence({
         game: {
-            name: `Currently in ${client.guilds.cache.size} servers`
+            name: 'Testing commands'
         }
     });
 });
