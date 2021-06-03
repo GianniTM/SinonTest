@@ -15,7 +15,10 @@ module.exports = {
     description: 'avatar',
     execute(message, args) {
         const embed = new Discord.RichEmbed();
-        var user = message.mentions.users.first() || message.member.user;
+        var user = message.mentions.users.first();
+        if (!user){
+            user = message.member.user
+        }
         const member = message.guild.member.cache.get(user.id);
             embed.setTitle(`Userinfo ${user.username}`);
             embed.setThumbnail(user.displayAvatarURL);
