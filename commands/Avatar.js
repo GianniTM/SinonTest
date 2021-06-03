@@ -16,9 +16,6 @@ module.exports = {
     execute(message, args) {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
-        console.log(mention)
-        console.log(mention.id)
-        console.log(mention.username)
         if (mention == null){
             embed.setTitle("Your Avatar");
             embed.setThumbnail(message.author.displayAvatarURL);
