@@ -17,27 +17,11 @@ module.exports = {
         const embed = new Discord.RichEmbed();
         var mention = message.mentions.users.first();
         if (mention == null){
-            mention = message.author;
+            mention = message.author
         }
-        const member = message.guild.member.cache.get(mention.id);
-            embed.setTitle(`Userinfo ${mention.username}`);
+            embed.setTitle(`${mention.username}'s avatar!`);
             embed.setThumbnail(mention.displayAvatarURL);
-            embed.addField(
-                {
-                    name:'**Tag**',
-                    value:`${mention.author.tag}`
-                },
-                {
-                    name:'**Nickname**',
-                    value: member.nickname || 'None'
-                },
-                {
-                    name:'**Joined Server**',
-                    value: new Date(member.joinedTimestamp)
-                }
-                
-            );
-            embed.setColor("37bceb");
+            embed.setColor("f7d456");
             message.channel.send({embed});
   /*  execute(message) {
         const embed = new Discord.RichEmbed();
