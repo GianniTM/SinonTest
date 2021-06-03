@@ -30,7 +30,13 @@ module.exports = {
                 '**Nickname**', member.nickname || 'None'
              );
             embed.addField(
-                '**Joined Server**',new Date(member.joinedTimestamp)
+                '**Joined Server**',new Date(member.joinedTimestamp).toLocaleDateString()
+            );
+            embed.addField(
+                '**Joined Discord**',new Date(mention.createdTimestamp).toLocaleDateString()
+            );
+            embed.addField(
+                '**Role Count**',member.roles.cache.size -1
             );
             embed.setColor("37bceb");
             message.channel.send({embed});
