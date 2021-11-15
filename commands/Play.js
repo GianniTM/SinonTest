@@ -31,7 +31,7 @@ module.exports = {
 
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
-                            m.delete()
+                           // m.delete()
                         })
                     })
                     server.queue.push(mentionMessage);
@@ -63,7 +63,7 @@ module.exports = {
                         embed.setDescription( "Added " + title + " songs!");
                         message.channel.send({embed}).then(m => {
                             server.dispatcher.on("end",function () {
-                                m.delete();
+                              //  m.delete();
                             })
                         })
                         const titles = server.queue[0].title;
@@ -71,7 +71,7 @@ module.exports = {
                         embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
                         message.channel.send({embed}).then(m => {
                             server.dispatcher.on("end",function () {
-                                m.delete();
+                              //  m.delete();
                             })
                         })
                         Play(connection, message);
@@ -102,7 +102,7 @@ module.exports = {
 
                 message.channel.send({embed}).then(m => {
                     server.dispatcher.on("end",function () {
-                        m.delete()
+                      //  m.delete()
                     })
                 })
                 server.queue.push(mentionMessage);
@@ -134,7 +134,7 @@ module.exports = {
                     embed.setDescription( "["+ titles + "](" + video.url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
-                            m.delete()
+                           // m.delete()
                         })
                     })
                     server.queue.push(mentionMessage);
@@ -163,7 +163,7 @@ module.exports = {
                         embed.setDescription( "Added " + title + " songs!");
                         message.channel.send({embed}).then(m => {
                             server.dispatcher.on("end",function () {
-                                m.delete();
+                              //  m.delete();
                             })
                         })
                         const titles = server.queue[0].title;
@@ -171,7 +171,7 @@ module.exports = {
                         embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
                         message.channel.send({embed}).then(m => {
                             server.dispatcher.on("end",function () {
-                                m.delete();
+                               // m.delete();
                             })
 
                     })
@@ -198,7 +198,7 @@ module.exports = {
                     embed.setDescription( "["+ titles + "](" + video.url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
-                            m.delete()
+                           // m.delete()
                         })
                     })
                     server.queue.push(mentionMessage);
@@ -227,6 +227,7 @@ module.exports = {
                     embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
+                           // m.delete();
                         })
                     })
                     Play(connection, message);
