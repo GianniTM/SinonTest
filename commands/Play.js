@@ -217,7 +217,7 @@ module.exports = {
         function Play(connection, message)
         {
             var server = servers[message.guild.id];
-            server.dispatcher = connection.playStream(YTDL(server.queue[0].url));
+            server.dispatcher = connection.playStream(YTDL(server.queue[0].url,{filter:'audioonly'}));
             server.dispatcher.on("end",function () {
                 server.queue.shift();
                 if (server.queue[0]){
@@ -227,7 +227,6 @@ module.exports = {
                     embed.setDescription( "["+ titles + "](" + server.queue[0].url + ")");
                     message.channel.send({embed}).then(m => {
                         server.dispatcher.on("end",function () {
-                            m.delete();
                         })
                     })
                     Play(connection, message);
