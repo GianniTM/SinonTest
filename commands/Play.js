@@ -217,8 +217,8 @@ module.exports = {
         function Play(connection, message)
         {
             var server = servers[message.guild.id];
-            server.dispatcher = connection.playStream(YTDL("https://www.youtube.com/watch?v=ZaI2IlHwmgQ",{filter:'audioonly'}));
-            server.dispatcher.on("end",function () {
+            server.dispatcher = connection.play(YTDL("https://www.youtube.com/watch?v=ZaI2IlHwmgQ",{filter:'audioonly'}, { seek: 0, volume: 0.5 }));
+            server.dispatcher.on("finish",function () {
                 server.queue.shift();
                 if (server.queue[0]){
                     const embed = new Discord.RichEmbed();
